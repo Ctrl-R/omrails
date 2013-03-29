@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Loanedto:</b>
+  <%= @loan.loanedTo %>
+</p>
+
+<p>
+  <b>Loanedon:</b>
+  <%= @loan.loanedOn %>
+</p>
+
+<p>
+  <b>Returnedon:</b>
+  <%= @loan.returnedOn %>
+</p>
+
+<%= link_to 'Edit', edit_loan_path(@loan) %> |
+<%= link_to 'Back to Pins', pins_path %>

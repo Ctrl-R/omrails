@@ -11,20 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130310173729) do
+ActiveRecord::Schema.define(:version => 20130329012210) do
 
-  create_table "pins", :force => true do |t|
-    t.string   "description"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+  create_table "loans", :force => true do |t|
+    t.string   "loanedTo"
+    t.date     "loanedOn"
+    t.date     "returnedOn"
+    t.integer  "pin_id"
     t.integer  "user_id"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "pins", ["user_id"], :name => "index_pins_on_user_id"
+  add_index "loans", ["pin_id"], :name => "index_loans_on_pin_id"
+  add_index "loans", ["user_id"], :name => "index_loans_on_user_id"
+
+# Could not dump table "pins" because of following StandardError
+#   Unknown type 'reference' for column 'loan'
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

@@ -1,0 +1,31 @@
+<h1>Listing loans</h1>
+
+<table>
+  <tr>
+    <th>Loanedto</th>
+    <th>Loanedon</th>
+    <th>Returnedon</th>
+    <th>Pin</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @loans.each do |loan| %>
+  <tr>
+    <td><%= loan.loanedTo %></td>
+    <td><%= loan.loanedOn %></td>
+    <td><%= loan.returnedOn %></td>
+    <td><%= loan.pin %></td>
+    <td><%= loan.user %></td>
+    <td><%= link_to 'Show', loan %></td>
+    <td><%= link_to 'Edit', edit_loan_path(loan) %></td>
+    <td><%= link_to 'Destroy', loan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Loan', new_loan_path %>

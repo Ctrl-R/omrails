@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  loanedTo: MyString
+  loanedOn: 2013-03-28
+  returnedOn: 2013-03-28
+  pin: 
+  user: 
+
+two:
+  loanedTo: MyString
+  loanedOn: 2013-03-28
+  returnedOn: 2013-03-28
+  pin: 
+  user: 

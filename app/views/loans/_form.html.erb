@@ -1,0 +1,11 @@
+<%= simple_form_for(@loan, html: { class: "form-horizontal"}) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :loanedTo, label: "Loaned To" %>
+  <%= f.input :loanedOn, label: "Loaned On", :input_html => {:style => 'width: 120px'} %>
+  <%= f.input :returnedOn, label: "Returned On", :input_html => {:style => 'width: 120px'} %>
+  
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+<% end %>

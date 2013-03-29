@@ -13,5 +13,15 @@
 			<%= link_to 'Edit', edit_pin_path(pin) %> | 
 			<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
 		</p>
+	<% else %>
+		<% if pin.loans.blank? %>
+			<p style="color: green">This item is available!</p>
+		<% else %>
+			<% if pin.loans.last[:returnedOn].blank? %>
+				<p style="color: red">This item is currently on Loan.</p>
+			<% else %>
+				<p style="color: green">This item is available!</p>
+			<% end %>
+		<% end %>
 	<% end %>
 </div>

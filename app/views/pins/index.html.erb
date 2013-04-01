@@ -1,5 +1,16 @@
 <%= render 'pages/home' %>
 
-<div id="pins">
-	<%= render @pins %>
-</div>
+<% if user_signed_in? %>
+	<div>
+		<%= form_tag pins_path,  :method => 'get' do %>
+		  <p>
+		    <%= text_field_tag :search, params[:search] %>
+		    <%= submit_tag "Search", :description => nil, class: "btn btn-primary" %>
+		  </p>
+		<% end %>
+	</div>
+
+	<div id="pins">
+		<%= render @pins %>
+	</div>
+<% end %>

@@ -10,4 +10,13 @@ class Pin < ActiveRecord::Base
   belongs_to :user
   has_attached_file :image, styles: { medium: "320x240>" }
   has_many :loans
+  
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['description LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
+  
 end

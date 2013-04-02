@@ -13,9 +13,9 @@ class Pin < ActiveRecord::Base
   
   def self.search(search)
     if search
-      find(:all, :conditions => ['description LIKE ?', "%#{search}%"])
+      find(:all, :conditions => ['description ILIKE ?', "%#{search}%"])
     else
-      find(:all)
+      Pin.order("created_at desc")
     end
   end
   

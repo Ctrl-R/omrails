@@ -14,13 +14,17 @@
 			<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
 		</p>
 	<% else %>
-		<% if pin.loans.blank? %>
-			<p style="color: green">This item is available!</p>
+		<% if pin.forLoan and pin.forSale and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
+			<p style="color: green">For: Loan or Sale</p>
 		<% else %>
-			<% if pin.loans.last[:returnedOn].blank? %>
-				<p style="color: red">This item is currently on Loan.</p>
+			<% if pin.forLoan and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
+				<p style="color: green">For: Loan</p>
 			<% else %>
-				<p style="color: green">This item is available!</p>
+				<% if pin.forSale and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
+					<p style="color: green">For: Sale</p>
+				<% else %>
+					<p style="color: red">Item is on hold </p>
+				<% end %>
 			<% end %>
 		<% end %>
 	<% end %>

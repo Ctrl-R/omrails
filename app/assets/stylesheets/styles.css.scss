@@ -53,3 +53,15 @@ body {
 .description {
   margin: 10px 0 5px;
 }
+
+p.itemStatus {
+  color: green;
+  font-size: 18px;
+  text-align: center;
+}
+
+p.itemStatusHold {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+}

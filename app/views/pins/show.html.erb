@@ -47,13 +47,17 @@
 			</div>
 		<% else %>
 			<div class="well">
-				<% if @pin.loans.blank? %>
-					<h2>This item is available!</h2>
+				<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+					<p class="itemStatus">Available for Loan or Sale</p>
 				<% else %>
-					<% if @pin.loans.last[:returnedOn].blank? %>
-						<h2>This item is currently on Loan.</h2>
+					<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+						<p class="itemStatus">Available for Loan</p>
 					<% else %>
-						<h2>This item is available!</h2>
+						<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+							<p class="itemStatus">Available for Sale</p>
+						<% else %>
+							<p class="itemStatusHold">This item is on hold.</p>
+						<% end %>
 					<% end %>
 				<% end %>
 			</div>

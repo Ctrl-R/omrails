@@ -5,8 +5,9 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'simple_form'
 gem "paperclip", "~> 3.0"
-gem "cocaine", "~> 0.5.1"
-gem "aws-sdk"
+gem 'aws-sdk'
+gem 'will_paginate' 
+gem 'bootstrap-will_paginate'
 
 group :production do
 	gem 'pg'

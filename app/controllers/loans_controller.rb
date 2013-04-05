@@ -65,10 +65,11 @@ class LoansController < ApplicationController
   # DELETE /loans/1.json
   def destroy
     @loan = Loan.find(params[:id])
+    @pin = Pin.find(@loan.pin_id)
     @loan.destroy
 
     respond_to do |format|
-      format.html { redirect_to loans_url }
+      format.html { redirect_to pin_path(@pin) }
       format.json { head :no_content }
     end
   end

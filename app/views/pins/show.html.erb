@@ -9,6 +9,19 @@
 			  <%= @pin.user.name %>
 			</p>
 			<% if current_user == @pin.user %>
+				<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+					<p style="color: green">For: Loan or Sale</p>
+				<% else %>
+					<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+						<p style="color: green">For: Loan</p>
+					<% else %>
+						<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+							<p style="color: green">For: Sale</p>
+						<% else %>
+							<p style="color: red">Item is on hold </p>
+						<% end %>
+					<% end %>
+				<% end %>
 				<%= link_to 'Edit', edit_pin_path(@pin) %> |
 			<% end %>
 			<%= link_to 'Back', pins_path %>

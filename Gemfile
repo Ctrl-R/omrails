@@ -8,6 +8,7 @@ gem "paperclip", "~> 3.0"
 gem 'aws-sdk'
 gem 'will_paginate' 
 gem 'bootstrap-will_paginate'
+gem 'figaro'
 
 group :production do
 	gem 'pg'

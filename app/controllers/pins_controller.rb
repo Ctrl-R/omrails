@@ -4,7 +4,7 @@ class PinsController < ApplicationController
   # GET /pins
   # GET /pins.json
   def index
-    @pins = Pin.search(params[:search]).page(params[:page]).per_page(20)
+    @pins = Pin.page(params[:page]).per_page(20).search(params[:search])
 
     respond_to do |format|
       format.html # index.html.erb

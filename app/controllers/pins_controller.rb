@@ -70,7 +70,7 @@ class PinsController < ApplicationController
       end
     end
   end
-
+  
   # DELETE /pins/1
   # DELETE /pins/1.json
   def destroy
@@ -80,6 +80,16 @@ class PinsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to pins_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def sendrequest
+    @user = current_user
+    @pin = Pin.find(params[:id])
+    if user_signed_in?
+      UserMailer.request_pin(@user, @pin).deliver
+      redirect_to @pin, notice: 'Request for contact sent.'
+    else
     end
   end
 end

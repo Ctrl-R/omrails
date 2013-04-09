@@ -3,6 +3,9 @@ Omrails::Application.routes.draw do
 
   resources :pins do
     resources :loans
+    member do
+      match 'sendrequest' => 'pins#sendrequest'
+    end
   end
 
   resources :loans

@@ -6,19 +6,21 @@
 			  <%= @pin.description %>
 			</p>
 			<p>
-			  <%= @pin.user.name %>
+			  <strong>
+					Posted by <%= link_to @pin.user.name, @pin.user %>
+				</strong>
 			</p>
 			<% if current_user == @pin.user %>
 				<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-					<p style="color: green">For: Loan or Sale</p>
+					<p style="color: green; font-weight: bold">For: Loan or Sale</p>
 				<% else %>
 					<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-						<p style="color: green">For: Loan</p>
+						<p style="color: green; font-weight: bold">For: Loan</p>
 					<% else %>
 						<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-							<p style="color: green">For: Sale</p>
+							<p style="color: green; font-weight: bold">For: Sale</p>
 						<% else %>
-							<p style="color: red">Item is on hold </p>
+							<p style="color: red; font-weight: bold">Item is on hold </p>
 						<% end %>
 					<% end %>
 				<% end %>
@@ -59,15 +61,18 @@
 				</p>
 			</div>
 		<% else %>
-			<div class="well">
+			<div class="well" style="text-align: center">
 				<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-					<p class="itemStatus">Available for Loan or Sale</p>
+					<p class="itemStatus">Available for Loan or Sale</p><br />
+					<%= link_to "Request Contact", sendrequest_pin_path(current_user, @pin), class: "btn btn-primary" %>
 				<% else %>
 					<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
 						<p class="itemStatus">Available for Loan</p>
+						<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
 					<% else %>
 						<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-							<p class="itemStatus">Available for Sale</p>
+							<p class="itemStatus">Available for Sale</p><br />
+							<%= link_to "Request Contact", sendrequest_pin_path(current_user, @pin), class: "btn btn-primary" %>
 						<% else %>
 							<p class="itemStatusHold">This item is on hold.</p>
 						<% end %>

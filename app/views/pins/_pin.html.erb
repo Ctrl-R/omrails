@@ -15,15 +15,15 @@
 		</p>
 	<% else %>
 		<% if pin.forLoan and pin.forSale and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
-			<p style="color: green">For: Loan or Sale</p>
+			<p style="color: green; font-weight: bold">For: Loan or Sale</p>
 		<% else %>
 			<% if pin.forLoan and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
-				<p style="color: green">For: Loan</p>
+				<p style="color: green; font-weight: bold">For: Loan</p>
 			<% else %>
 				<% if pin.forSale and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
-					<p style="color: green">For: Sale</p>
+					<p style="color: green; font-weight: bold">For: Sale</p>
 				<% else %>
-					<p style="color: red">Item is on hold </p>
+					<p style="color: red; font-weight: bold">Item is on hold </p>
 				<% end %>
 			<% end %>
 		<% end %>

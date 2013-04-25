@@ -12,6 +12,24 @@ class PinsController < ApplicationController
     end
   end
 
+  def showforloan
+    @pins = Pin.page(params[:page]).per_page(20).where(:forLoan => true).search(params[:search])
+
+    respond_to do |format|
+      format.html # showforloan.html.erb
+      format.json { render json: @pins }
+    end
+  end
+
+  def showforsale
+    @pins = Pin.page(params[:page]).per_page(20).where(:forSale => true).search(params[:search])
+
+    respond_to do |format|
+      format.html # showforsale.html.erb
+      format.json { render json: @pins }
+    end
+  end
+
   # GET /pins/1
   # GET /pins/1.json
   def show

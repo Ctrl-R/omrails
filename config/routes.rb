@@ -13,6 +13,10 @@ Omrails::Application.routes.draw do
   devise_for :users
   match 'users/:id' => 'users#show', as: :user
 
+  get 'showforloan' => 'pins#showforloan'
+
+  get 'showforsale' => 'pins#showforsale'
+
   get 'about' => 'pages#about'
 
   root :to => 'pins#index'

@@ -10,6 +10,11 @@
 		<% end %>
 	</div>
 
+	<% if params[:search].blank? %>
+		<h4>Gear Listed For Loan</h4>
+	<% else %>
+		 <h4>Gear Listed For Loan Including "<%= params[:search] %>"</h4>
+	<% end %>
 	<div id="pins">
 		<%= render @pins %>
 	</div>

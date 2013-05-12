@@ -70,22 +70,22 @@
 				<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
 					<p class="itemStatus">Available for Loan or Sale</p><br />
 					<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
-					<p>
-						<small>The ower of this pin will receive an email with<br />your email address as the Reply-To address.</small>
+					<p class="description">
+						<small>The ower of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 					</p>
 				<% else %>
 					<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
 						<p class="itemStatus">Available for Loan</p>
 						<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
-						<p>
-							<small>The ower of this pin will receive an email with<br />your email address as the Reply-To address.</small>
+						<p class="description">
+							<small>The ower of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 						</p>
 					<% else %>
 						<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
 							<p class="itemStatus">Available for Sale</p><br />
 							<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
-							<p>
-								<small>The ower of this pin will receive an email with<br />your email address as the Reply-To address.</small>
+							<p class="description">
+								<small>The ower of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 							</p>
 						<% else %>
 							<p class="itemStatusHold">This item is on hold.</p>

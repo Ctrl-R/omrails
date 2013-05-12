@@ -1,29 +1,34 @@
 <div class="row">
   <div class="span6 offset3">
   	<div class="well">
-			<%= image_tag @pin.image %>
-			<p>
+			
+			<%= image_tag @pin.image %><br />
+			
+			<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+				<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :alt => 'For Loan') + image_tag('buy.png', :size => '20x20', :alt => 'For Sale') %></p>
+			<% else %>
+				<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+					<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :alt => 'For Loan') %></p>
+				<% else %>
+					<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+						<p class="pull-right description"><%= image_tag('buy.png', :size => '20x20', :alt => 'For Sale') %></p>
+					<% else %>
+						<p class="pull-right description"><%= image_tag('hold.png', :size => '20x20', :alt => 'Item is on hold') %></p>
+					<% end %>
+				<% end %>
+			<% end %>
+			
+			<p class="description">
 			  <%= @pin.description %>
 			</p>
+			
 			<p>
 			  <strong>
 					Posted by <%= link_to @pin.user.name, @pin.user %>
 				</strong>
 			</p>
+			
 			<% if current_user == @pin.user %>
-				<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-					<p style="color: green; font-weight: bold">For: Loan or Sale</p>
-				<% else %>
-					<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-						<p style="color: green; font-weight: bold">For: Loan</p>
-					<% else %>
-						<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-							<p style="color: green; font-weight: bold">For: Sale</p>
-						<% else %>
-							<p style="color: red; font-weight: bold">Item is on hold </p>
-						<% end %>
-					<% end %>
-				<% end %>
 				<%= link_to 'Edit', edit_pin_path(@pin) %> |
 			<% end %>
 			<%= link_to 'Back', pins_path %>

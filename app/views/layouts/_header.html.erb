@@ -10,15 +10,14 @@
       </a>
  
       <!-- Be sure to leave the brand out there if you want it shown -->
-      <%= link_to "Columbia Yak Attack Gear Swap", root_path, class: "brand" %>
+      <%= link_to "Yak Attack Gear Swap", root_path, class: "brand" %>
  
       <!-- Everything you want hidden at 940px or less, place within here -->
       <div class="nav-collapse collapse">
         <ul class="nav">
-        	<li><%= link_to "All", root_path %></li>
+        	<li><%= link_to (image_tag('swap.png', :size => '19x20') + " All " + image_tag('buy.png', :size => '20x20')), root_path %></li>
         	<li><%= link_to (image_tag('swap.png', :size => '19x20') + " Borrow"), showforloan_path %></li>
         	<li><%= link_to (image_tag('buy.png', :size => '20x20') + " Buy"), showforsale_path %></li>
-					<li><%= link_to "About", about_path %></li>
 				</ul>
 				<ul class="nav pull-right">
 					<% if user_signed_in? %>
@@ -29,6 +28,7 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "Edit Account", edit_user_registration_path %></a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "View User Profile", user_path(current_user) %></a></li>
                 <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "About", about_path %></a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a></li>
               </ul>
              </li>

@@ -1,6 +1,8 @@
 class Pin < ActiveRecord::Base
   attr_accessible :description, :image, :forLoan, :forSale
   
+  has_attached_file :image, styles: { medium: "320x240>" }
+  
   validates :description, presence: true
   validates :user_id, presence: true
   validates_attachment :image, presence: true,
@@ -8,7 +10,6 @@ class Pin < ActiveRecord::Base
                                size: { less_than: 5.megabytes }
   
   belongs_to :user
-  has_attached_file :image, styles: { medium: "320x240>" }
   has_many :loans
   
   def self.search(search)

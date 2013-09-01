@@ -1,7 +1,11 @@
-<h1><%= @user.name %>'s Gear</h1>
-
-<div id="pins">
-  <%= render @pins %>
-</div>
-
-<%= will_paginate @pins %>
+<% if user_signed_in? %>
+	<h1><%= @user.name %>'s Gear</h1>
+	
+	<div id="pins">
+	  <%= render @pins %>
+	</div>
+	
+	<%= will_paginate @pins %>
+<% else %>
+	<h4>You must be signed in to view user profiles.</h4>
+<% end %>

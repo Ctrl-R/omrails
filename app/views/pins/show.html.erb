@@ -66,36 +66,42 @@
 				</p>
 			</div>
 		<% else %>
-			<div class="well" style="text-align: center">
-				<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-					<p class="itemStatus">Available for Loan or Sale</p><br />
-					<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
-					<p class="description">
-						<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
-					</p>
-				<% else %>
-					<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-						<p class="itemStatus">Available for Loan</p>
+		  <% if user_signed_in? %>
+				<div class="well" style="text-align: center">
+					<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+						<p class="itemStatus">Available for Loan or Sale</p><br />
 						<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
 						<p class="description">
 							<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 						</p>
 					<% else %>
-						<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
-							<p class="itemStatus">Available for Sale</p><br />
+						<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+							<p class="itemStatus">Available for Loan</p>
 							<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
 							<p class="description">
 								<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 							</p>
 						<% else %>
-							<p class="itemStatusHold">This item is on hold.</p>
-							<p>
-								Please check back later to see if it becomes available.
-							</p>
+							<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+								<p class="itemStatus">Available for Sale</p><br />
+								<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary" %>
+								<p class="description">
+									<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
+								</p>
+							<% else %>
+								<p class="itemStatusHold">This item is on hold.</p>
+								<p>
+									Please check back later to see if it becomes available.
+								</p>
+							<% end %>
 						<% end %>
 					<% end %>
-				<% end %>
-			</div>
+				</div>
+			<% else %>
+				<div class="well" style="text-align: center">
+					<p class="itemStatusHold">You must be logged in to request contact.</p>
+				</div>
+			<% end %>
 		<% end %>
 	</div>
 </div>

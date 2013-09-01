@@ -1,23 +1,21 @@
 <%= render 'pages/home' %>
 
-<% if user_signed_in? %>
-	<div>
-		<%= form_tag showforsale_path,  :method => 'get' do %>
-		  <p>
-		    <%= text_field_tag :search, params[:search] %>
-		    <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
-		  </p>
-		<% end %>
-	</div>
-
-	<% if params[:search].blank? %>
-		<h4>Gear Listed For Sale</h4>
-	<% else %>
-		 <h4>Gear Listed For Sale Including "<%= params[:search] %>"</h4>
+<div>
+	<%= form_tag showforsale_path,  :method => 'get' do %>
+	  <p>
+	    <%= text_field_tag :search, params[:search] %>
+	    <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+	  </p>
 	<% end %>
-	<div id="pins">
-		<%= render @pins %>
-	</div>
-	
-	<%= will_paginate @pins%>
+</div>
+
+<% if params[:search].blank? %>
+	<h4>Gear Listed For Sale</h4>
+<% else %>
+	 <h4>Gear Listed For Sale Including "<%= params[:search] %>"</h4>
 <% end %>
+<div id="pins">
+	<%= render @pins %>
+</div>
+
+<%= will_paginate @pins%>

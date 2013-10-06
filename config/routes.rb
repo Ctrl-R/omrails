@@ -6,6 +6,9 @@ Omrails::Application.routes.draw do
     member do
       match 'sendrequest' => 'pins#sendrequest'
     end
+    member do
+      match 'startoggle' => 'pins#startoggle'
+    end
   end
 
   resources :loans
@@ -16,6 +19,8 @@ Omrails::Application.routes.draw do
   get 'showforloan' => 'pins#showforloan'
 
   get 'showforsale' => 'pins#showforsale'
+  
+  get 'favoritelist' => 'pins#favoritelist'
 
   get 'about' => 'pages#about'
 

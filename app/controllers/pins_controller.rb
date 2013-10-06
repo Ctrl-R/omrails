@@ -101,6 +101,41 @@ class PinsController < ApplicationController
     end
   end
   
+  def favoritelist
+    @user = current_user
+    @favorites = @user.favorites
+    @pins = Pin.page(params[:page]).per_page(20).find(:all, :conditions => ["pins.id IN (?)", @favorites])
+
+    respond_to do |format|
+      format.html # favoritelist.html.erb
+      format.json { render json: @pins }
+    end
+  end
+  
+  def startoggle
+    @user = current_user
+    @favorites = @user.favorites
+    @pin = Pin.find(params[:id])
+    if user_signed_in?
+      if !@favorites.blank?
+        if !@favorites.include?(@pin.id)
+          @favorites << (@pin.id)
+          @user.save
+          redirect_to @pin, notice: 'Item has been added to favorites.'
+        else
+          @favorites.delete(@pin.id)
+          @user.save
+          redirect_to @pin, notice: 'Item has been removed from favorites.'
+        end
+      else
+        @favorites << (@pin.id)
+        @user.save
+        redirect_to @pin, notice: 'Item has been added to favorites.'
+      end
+    else
+    end
+  end
+  
   def sendrequest
     @user = current_user
     @pin = Pin.find(params[:id])

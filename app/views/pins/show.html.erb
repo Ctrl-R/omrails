@@ -1,7 +1,15 @@
 <div class="row">
   <div class="span6 offset3">
   	<div class="well">
-			
+			  <% if !current_user.favorites.blank? %>
+			  	<% if !current_user.favorites.include?(@pin.id) %>
+			  		<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin)) %>
+			  	<% else %>
+			  		<%=link_to( image_tag("star.png"), startoggle_pin_path(@pin)) %>
+			  	<% end %>
+			  <% else %>
+			  	<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin)) %>
+			  <% end %>
 			<%= image_tag @pin.image %><br />
 			
 			<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>

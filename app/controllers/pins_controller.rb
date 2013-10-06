@@ -119,7 +119,7 @@ class PinsController < ApplicationController
     if user_signed_in?
       if !@favorites.blank?
         if !@favorites.include?(@pin.id)
-          @favorites << (@pin.id)
+          @favorites.push(@pin.id)
           @user.save
           redirect_to @pin, notice: 'Item has been added to favorites.'
         else
@@ -128,7 +128,7 @@ class PinsController < ApplicationController
           redirect_to @pin, notice: 'Item has been removed from favorites.'
         end
       else
-        @favorites << (@pin.id)
+        @favorites.push(@pin.id)
         @user.save
         redirect_to @pin, notice: 'Item has been added to favorites.'
       end

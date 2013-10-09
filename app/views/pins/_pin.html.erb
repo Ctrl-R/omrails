@@ -26,10 +26,21 @@
 		</strong>
 	</p>
 	
-	<% if current_user == pin.user %>  
-		<p>
-			<%= link_to 'Edit', edit_pin_path(pin) %> | 
-			<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
-		</p>
+	<% if !current_user.blank? %>
+		<% current_user.admin ||= false %>
+		<% current_user.save %>
+		<% if current_user == pin.user %>  
+			<p>
+				<%= link_to 'Edit', edit_pin_path(pin) %> | 
+				<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+			</p>
+		<% else %>
+			<% if current_user.admin == true %>
+				<p>
+					<%= link_to 'Edit', edit_pin_path(pin) %> | 
+					<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+				</p>
+			<% end %>
+		<% end %>
 	<% end %>
 </div>

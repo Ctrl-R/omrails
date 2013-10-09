@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131005214313) do
+ActiveRecord::Schema.define(:version => 20131009220720) do
 
   create_table "loans", :force => true do |t|
     t.string   "loanedTo"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20131005214313) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.text     "favorites"
+    t.boolean  "admin"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

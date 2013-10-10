@@ -98,7 +98,13 @@ class PinsController < ApplicationController
   # DELETE /pins/1
   # DELETE /pins/1.json
   def destroy
-    @pin = current_user.pins.find(params[:id])
+    if current_user == Pin.find(params[:id]).user
+      @pin = current_user.pins.find(params[:id])
+    else
+      if current_user.admin
+        @pin = Pin.find(params[:id])
+      end
+    end
     @pin.destroy
 
     respond_to do |format|

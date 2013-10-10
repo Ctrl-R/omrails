@@ -82,7 +82,13 @@ class PinsController < ApplicationController
   # PUT /pins/1
   # PUT /pins/1.json
   def update
-    @pin = current_user.pins.find(params[:id])
+    if current_user == Pin.find(params[:id]).user
+      @pin = current_user.pins.find(params[:id])
+    else
+      if current_user.admin
+        @pin = Pin.find(params[:id])
+      end
+    end
 
     respond_to do |format|
       if @pin.update_attributes(params[:pin])

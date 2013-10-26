@@ -14,10 +14,7 @@ Omrails::Application.routes.draw do
   resources :loans
 
   devise_for :users
-
-  devise_for :users do
-    match 'users/:id' => 'users#show', as: :user
-  end
+  match 'users/:id' => 'users#show', as: :user
 
   get 'showforloan' => 'pins#showforloan'
 

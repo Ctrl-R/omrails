@@ -19,11 +19,11 @@
 	<p class="description">
 		<%= pin.description %>
 	</p>
-	
-	<p class="description">
-		<strong>
-			Posted by <%= link_to pin.user.name, pin.user %>
-		</strong>
+	<p class="category">
+		<%= pin.category %>
+	</p>
+	<p class="postedby">
+		Posted by <%= link_to pin.user.name, pin.user %>
 	</p>
 	
 	<% if !current_user.blank? %>

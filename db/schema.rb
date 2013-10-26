@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009220720) do
+ActiveRecord::Schema.define(:version => 20131026022131) do
 
   create_table "loans", :force => true do |t|
     t.string   "loanedTo"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20131009220720) do
     t.datetime "image_updated_at"
     t.boolean  "forLoan"
     t.boolean  "forSale"
+    t.string   "category"
   end
 
   add_index "pins", ["user_id"], :name => "index_pins_on_user_id"

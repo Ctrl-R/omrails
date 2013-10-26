@@ -4,15 +4,33 @@
 	<%= form_tag showforloan_path,  :method => 'get' do %>
 	  <p>
 	    <%= text_field_tag :search, params[:search] %>
+	    <%= select_tag :catfilter, options_for_select(Pin.uniq.pluck(:category).collect{ |u| [u, u] }, :selected => params[:catfilter]), prompt: "Filter by category" %>
 	    <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
 	  </p>
 	<% end %>
 </div>
 
+<script language="JavaScript">
+ 		document.getElementById('search').focus();
+</script>
+
 <% if params[:search].blank? %>
-	<h4>Gear Listed For Loan</h4>
+	<h4>All 
+		<% if !params[:catfilter].blank? %>
+			<%= params[:catfilter] %>
+		<% else %>
+			Gear
+		<% end %>
+		 Listed For Loan
+	</h4>
 <% else %>
-	 <h4>Gear Listed For Loan Including "<%= params[:search] %>"</h4>
+	 <h4>All 
+		<% if !params[:catfilter].blank? %>
+			<%= params[:catfilter] %>
+		<% else %>
+			Gear
+		<% end %>
+		 Listed For Loan Including "<%= params[:search] %>"</h4>
 <% end %>
 <div id="pins">
 	<%= render @pins %>

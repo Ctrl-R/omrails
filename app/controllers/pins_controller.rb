@@ -3,8 +3,13 @@ class PinsController < ApplicationController
   
   # GET /pins
   # GET /pins.json
+  
   def index
-    @pins = Pin.page(params[:page]).per_page(20).search(params[:search])
+    if filter_categories.blank?
+      @pins = Pin.page(params[:page]).per_page(20).search(params[:search])
+    else
+      @pins = Pin.page(params[:page]).per_page(20).where(category: filter_categories).search(params[:search])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +18,11 @@ class PinsController < ApplicationController
   end
 
   def showforloan
-    @pins = Pin.page(params[:page]).per_page(20).where(:forLoan => true).search(params[:search])
+    if filter_categories.blank?
+      @pins = Pin.page(params[:page]).per_page(20).where(:forLoan => true).search(params[:search])
+    else
+      @pins = Pin.page(params[:page]).per_page(20).where(:forLoan => true, category: filter_categories).search(params[:search])
+    end
 
     respond_to do |format|
       format.html # showforloan.html.erb
@@ -22,7 +31,11 @@ class PinsController < ApplicationController
   end
 
   def showforsale
-    @pins = Pin.page(params[:page]).per_page(20).where(:forSale => true).search(params[:search])
+    if filter_categories.blank?
+      @pins = Pin.page(params[:page]).per_page(20).where(:forSale => true).search(params[:search])
+    else
+      @pins = Pin.page(params[:page]).per_page(20).where(:forSale => true, category: filter_categories).search(params[:search])
+    end
 
     respond_to do |format|
       format.html # showforsale.html.erb
@@ -152,6 +165,10 @@ class PinsController < ApplicationController
       end
     else
     end
+  end
+  
+  def filter_categories
+    Pin.uniq.pluck(:category).include?(params[:catfilter]) ? params[:catfilter] : nil
   end
   
   def sendrequest

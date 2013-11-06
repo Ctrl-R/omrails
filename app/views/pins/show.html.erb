@@ -18,6 +18,7 @@
 			<% end %>
 			
 			<p class="description">
+			<% if current_user %>
 				<% if !current_user.favorites.blank? %>
 			  	<% if !current_user.favorites.include?(@pin.id) %>
 			  		<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin)) %>
@@ -27,6 +28,7 @@
 			  <% else %>
 			  	<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin)) %>
 			  <% end %>
+			<% end %>
 			  <%= @pin.description %>
 			</p>
 			<p class="category">

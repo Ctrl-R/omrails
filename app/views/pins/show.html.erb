@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span6 offset3">
   	<div class="well">
-			<%= image_tag @pin.image %><br />
+			<p align="center"><%= image_tag @pin.image %></p>
 			
 			<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
 				<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') + image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
@@ -21,12 +21,12 @@
 			<% if current_user %>
 				<% if !current_user.favorites.blank? %>
 			  	<% if !current_user.favorites.include?(@pin.id) %>
-			  		<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin)) %>
+			  		<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin), :title => 'Favorite') %>
 			  	<% else %>
-			  		<%=link_to( image_tag("star.png"), startoggle_pin_path(@pin)) %>
+			  		<%=link_to( image_tag("star.png"), startoggle_pin_path(@pin), :title => 'Unfavorite') %>
 			  	<% end %>
 			  <% else %>
-			  	<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin)) %>
+			  	<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin), :title => 'Favorite') %>
 			  <% end %>
 			<% end %>
 			  <%= @pin.description %>

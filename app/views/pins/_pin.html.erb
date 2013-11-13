@@ -29,7 +29,7 @@
 	<% if !current_user.blank? %>
 		<% current_user.admin ||= FALSE %>
 		<% current_user.save %>
-		<%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(pin), class: "pull-right" %>
+		<%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(pin), data: { confirm: 'Are you sure you want to report this item as abusive?' }, class: "pull-right" %>
 		<% if current_user == pin.user %>  
 			<p>
 				<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pin_path(pin), class: "btn" %>

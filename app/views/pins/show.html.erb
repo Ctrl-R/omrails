@@ -35,7 +35,7 @@
 				<%= @pin.category %>
 			</p>
 			<p class="postedby">
-			  Posted by <%= link_to @pin.user.name, @pin.user %> <%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(@pin), class: "pull-right" %>
+			  Posted by <%= link_to @pin.user.name, @pin.user %> <%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(@pin), data: { confirm: 'Are you sure you want to report this item as abusive?' }, class: "pull-right" %>
 			</p><br />
 			<%= link_to (content_tag :i, "", class: "icon-arrow-left", :title => 'Back'), pins_path, class: "btn" %>
 			<% if current_user == @pin.user %>

@@ -22,6 +22,8 @@ Omrails::Application.routes.draw do
   
   get 'favoritelist' => 'pins#favoritelist'
 
+  get 'loans' => 'loans#index'
+
   get 'about' => 'pages#about'
 
   root :to => 'pins#index'

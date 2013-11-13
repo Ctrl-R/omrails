@@ -1,9 +1,14 @@
 class LoansController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :set_loans
+
+  def set_loans
+    @loans = current_user.admin? ? Loan.all : current_user.loans.all 
+  end
   # GET /loans
   # GET /loans.json
   def index
-    @loans = Loan.all
+    #@loans = Loan.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,6 +48,8 @@ class LoansController < ApplicationController
   def create
     @pin = Pin.find(params[:pin_id])
     @loan = @pin.loans.create(params[:loan])
+    @loan.user_id = current_user.id
+    @loan.save
     redirect_to pin_path(@pin)
   end
 

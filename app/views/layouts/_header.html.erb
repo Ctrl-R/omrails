@@ -28,6 +28,7 @@
 							<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "Edit Account", edit_user_registration_path %></a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "View User Profile", user_path(current_user) %></a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "View Loan History", loans_path %></a></li>
                 <li role="presentation" class="divider"></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "About", about_path %></a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a></li>

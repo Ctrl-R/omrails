@@ -17,7 +17,7 @@
     <td><%= loan.loanedTo %></td>
     <td><%= loan.loanedOn %></td>
     <td><%= loan.returnedOn %></td>
-    <td><%= loan.pin %></td>
+    <td><%= loan.pin_id %></td>
     <td><%= loan.user %></td>
     <td><%= link_to 'Show', loan %></td>
     <td><%= link_to 'Edit', edit_loan_path(loan) %></td>
@@ -27,5 +27,3 @@
 </table>
 
 <br />
-
-<%= link_to 'New Loan', new_loan_path %>

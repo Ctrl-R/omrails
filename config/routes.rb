@@ -4,6 +4,7 @@ Omrails::Application.routes.draw do
     resources :loans
     member do
       match 'sendrequest' => 'pins#sendrequest'
+      match 'reportabuse' => 'pins#reportabuse'
     end
     member do
       match 'startoggle' => 'pins#startoggle'

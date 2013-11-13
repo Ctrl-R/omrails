@@ -29,16 +29,17 @@
 	<% if !current_user.blank? %>
 		<% current_user.admin ||= FALSE %>
 		<% current_user.save %>
+		<%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(pin), class: "pull-right" %>
 		<% if current_user == pin.user %>  
 			<p>
-				<%= link_to 'Edit', edit_pin_path(pin) %> | 
-				<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+				<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pin_path(pin), class: "btn" %>
+				<%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), pin, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %>
 			</p>
 		<% else %>
 			<% if current_user.admin == TRUE %>
 				<p>
-					<%= link_to 'Edit', edit_pin_path(pin) %> | 
-					<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+					<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pin_path(pin), class: "btn" %>
+					<%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), pin, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %>
 				</p>
 			<% end %>
 		<% end %>

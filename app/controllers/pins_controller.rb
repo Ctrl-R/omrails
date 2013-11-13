@@ -180,4 +180,15 @@ class PinsController < ApplicationController
     else
     end
   end
+  
+  def reportabuse
+    @user = current_user
+    @pin = Pin.find(params[:id])
+    if user_signed_in?
+      UserMailer.report_pin(@user, @pin).deliver
+      redirect_to @pin, notice: 'This pin has been reported to administration.'
+    else
+    end
+  end
+  
 end

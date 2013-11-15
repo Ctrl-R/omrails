@@ -1,7 +1,7 @@
 <tr>
-  <td><%= loan.loanedTo %></td>
-  <td><%= loan.loanedOn %></td>
-  <td><%= loan.returnedOn %></td>
+  <td><%= loan.loanedto %></td>
+  <td><%= loan.loanedon %></td>
+  <td><%= loan.returnedon %></td>
   <td><%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_loan_path(loan), class: "btn" %></td>
   <td><%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), loan, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %></td>
 </tr>

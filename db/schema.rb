@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131026022131) do
+ActiveRecord::Schema.define(:version => 20131115021814) do
 
   create_table "loans", :force => true do |t|
-    t.string   "loanedTo"
-    t.date     "loanedOn"
-    t.date     "returnedOn"
+    t.string   "loanedto"
+    t.date     "loanedon"
+    t.date     "returnedon"
     t.integer  "pin_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20131026022131) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.boolean  "forLoan"
-    t.boolean  "forSale"
+    t.boolean  "forloan"
+    t.boolean  "forsale"
     t.string   "category"
   end
 

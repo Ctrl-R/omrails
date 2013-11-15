@@ -4,9 +4,9 @@
 	  <thead>
 		  <tr>
 		    <th>Gear</th>
-		    <th><%= sortable "loanedTo", "Loaned To" %></th>
-		    <th><%= sortable "loanedOn", "Loaned On" %></th>
-		    <th><%= sortable "returnedOn", "Returned On" %></th>
+		    <th><%= sortable "loanedto", "Loaned To" %></th>
+		    <th><%= sortable "loanedon", "Loaned On" %></th>
+		    <th><%= sortable "returnedon", "Returned On" %></th>
 		    <th></th>
 		    <th></th>
 		  </tr>
@@ -15,9 +15,9 @@
 			<% @loans.each do |loan| %>
 			  <tr>
 			    <td><%= link_to loan.pin.description, pin_path(loan.pin) %></td>
-			    <td><%= loan.loanedTo %></td>
-			    <td><%= loan.loanedOn %></td>
-			    <td><%= loan.returnedOn %></td>
+			    <td><%= loan.loanedto %></td>
+			    <td><%= loan.loanedon %></td>
+			    <td><%= loan.returnedon %></td>
 			    <td><%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_loan_path(loan), class: "btn" %></td>
 			    <td><%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), loan, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %></td>
 			  </tr>

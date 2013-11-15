@@ -2,13 +2,13 @@
 	
 	<%= link_to (image_tag pin.image(:medium)), pin %>
 	
-	<% if pin.forLoan and pin.forSale and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
+	<% if pin.forloan and pin.forsale and (pin.loans.blank? or !pin.loans.last[:returnedon].blank?) %>
 		<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') + image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
 	<% else %>
-		<% if pin.forLoan and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
+		<% if pin.forloan and (pin.loans.blank? or !pin.loans.last[:returnedon].blank?) %>
 			<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') %></p>
 		<% else %>
-			<% if pin.forSale and (pin.loans.blank? or !pin.loans.last[:returnedOn].blank?) %>
+			<% if pin.forsale and (pin.loans.blank? or !pin.loans.last[:returnedon].blank?) %>
 				<p class="pull-right description"><%= image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
 			<% else %>
 				<p class="pull-right description"><%= image_tag('hold.png', :size => '20x20', :title => 'Item is on hold') %></p>

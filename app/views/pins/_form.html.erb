@@ -6,8 +6,8 @@
     <%= f.input :image, label: "Upload an image" %>
     <%= f.input :category, collection: ["Helmets", "Kayaks", "Paddles", "PFDs", "Skirts", "Other"] %>
     <%= f.input :description, as: :text, input_html: { rows: "3"} %>
-    <%= f.input :forLoan, label: "For Loan" %>
-    <%= f.input :forSale, label: "For Sale" %>
+    <%= f.input :forloan, label: "For Loan" %>
+    <%= f.input :forsale, label: "For Sale" %>
 
   <div class="form-actions">
     <%= f.button :submit, class: "btn btn-primary" %>

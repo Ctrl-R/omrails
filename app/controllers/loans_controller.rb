@@ -87,7 +87,7 @@ class LoansController < ApplicationController
   private
   
   def sort_column
-    Loan.column_names.include?(params[:sort]) ? params[:sort] : "loanedOn"
+    Loan.column_names.include?(params[:sort]) ? params[:sort] : "loanedon"
   end
   
   def sort_direction

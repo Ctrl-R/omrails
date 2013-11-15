@@ -19,9 +19,9 @@ class PinsController < ApplicationController
 
   def showforloan
     if filter_categories.blank?
-      @pins = Pin.page(params[:page]).per_page(20).where(:forLoan => true).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:forloan => true).search(params[:search])
     else
-      @pins = Pin.page(params[:page]).per_page(20).where(:forLoan => true, category: filter_categories).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:forloan => true, category: filter_categories).search(params[:search])
     end
 
     respond_to do |format|
@@ -32,9 +32,9 @@ class PinsController < ApplicationController
 
   def showforsale
     if filter_categories.blank?
-      @pins = Pin.page(params[:page]).per_page(20).where(:forSale => true).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:forsale => true).search(params[:search])
     else
-      @pins = Pin.page(params[:page]).per_page(20).where(:forSale => true, category: filter_categories).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:forsale => true, category: filter_categories).search(params[:search])
     end
 
     respond_to do |format|

@@ -1,5 +1,5 @@
 class Pin < ActiveRecord::Base
-  attr_accessible :description, :image, :forLoan, :forSale, :category
+  attr_accessible :description, :image, :forloan, :forsale, :category
   
   has_attached_file :image, styles: { medium: "320x240>" }
   

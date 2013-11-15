@@ -3,13 +3,13 @@
   	<div class="well">
 			<p align="center"><%= image_tag @pin.image %></p>
 			
-			<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+			<% if @pin.forloan and @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
 				<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') + image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
 			<% else %>
-				<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+				<% if @pin.forloan and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
 					<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') %></p>
 				<% else %>
-					<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+					<% if @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
 						<p class="pull-right description"><%= image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
 					<% else %>
 						<p class="pull-right description"><%= image_tag('hold.png', :size => '20x20', :title => 'Item is on hold') %></p>
@@ -91,8 +91,8 @@
 									<p>
 										<b>Loan Equipment:</b>
 										<%= simple_form_for([@pin, @pin.loans.build], html: { class: "form-horizontal"}) do |f| %>
-										  <%= f.input :loanedTo, label: "Loaned To" %>
-										  <%= f.input :loanedOn, label: "Loaned On" %>
+										  <%= f.input :loanedto, label: "Loaned To" %>
+										  <%= f.input :loanedon, label: "Loaned On" %>
 										  
 										  <div class="form-actions">
 										    <%= f.button :submit, class: "btn btn-primary" %>
@@ -108,21 +108,21 @@
 		<% else %>
 		  <% if user_signed_in? %>
 				<div class="well" style="text-align: center">
-					<% if @pin.forLoan and @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+					<% if @pin.forloan and @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
 						<p class="itemStatus">Available for Loan or Sale</p><br />
 						<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary", data: { confirm: 'Are you sure you want to request contact?' } %>
 						<p class="description">
 							<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 						</p>
 					<% else %>
-						<% if @pin.forLoan and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+						<% if @pin.forloan and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
 							<p class="itemStatus">Available for Loan</p>
 							<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary", data: { confirm: 'Are you sure you want to request contact?' } %>
 							<p class="description">
 								<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 							</p>
 						<% else %>
-							<% if @pin.forSale and (@pin.loans.blank? or !@pin.loans.last[:returnedOn].blank?) %>
+							<% if @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
 								<p class="itemStatus">Available for Sale</p><br />
 								<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary", data: { confirm: 'Are you sure you want to request contact?' } %>
 								<p class="description">

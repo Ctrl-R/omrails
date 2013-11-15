@@ -2,8 +2,10 @@ class LoansController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_loans
 
+  helper_method :sort_column, :sort_direction
+
   def set_loans
-    @loans = current_user.admin? ? Loan.all : current_user.loans.all 
+    @loans = current_user.admin? ? Loan.order(sort_column + " " + sort_direction) : current_user.loans.order(sort_column + " " + sort_direction)
   end
   # GET /loans
   # GET /loans.json
@@ -81,4 +83,15 @@ class LoansController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+  
+  def sort_column
+    Loan.column_names.include?(params[:sort]) ? params[:sort] : "loanedOn"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+  
 end

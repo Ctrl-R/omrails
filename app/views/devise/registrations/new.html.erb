@@ -9,6 +9,7 @@
   <%= f.input :password_confirmation %>
 
   <div class="form-actions">
+  	<p>By clicking "Sign up" below, you agree to the <%= link_to "disclaimer", disclaimer_path %></p>
   	<%= f.submit "Sign up", class: "btn btn-primary" %>
   </div>
 <% end %>

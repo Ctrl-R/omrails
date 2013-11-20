@@ -25,6 +25,8 @@ Omrails::Application.routes.draw do
   get 'loans' => 'loans#index'
 
   get 'about' => 'pages#about'
+  
+  get 'disclaimer' => 'pages#disclaimer'
 
   root :to => 'pins#index'
 

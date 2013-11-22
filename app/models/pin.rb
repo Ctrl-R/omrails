@@ -1,7 +1,7 @@
 class Pin < ActiveRecord::Base
   attr_accessible :description, :image, :forloan, :forsale, :category
   
-  has_attached_file :image, styles: { medium: "320x240>" }
+  has_attached_file :image, styles: { medium: "320x240>", :convert_options => "-auto-orient" }
   
   validates :description, presence: true
   validates :user_id, presence: true

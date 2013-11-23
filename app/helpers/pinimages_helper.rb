@@ -1,0 +1,2 @@
+module PinimagesHelper
+end

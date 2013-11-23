@@ -10,7 +10,8 @@ class Pin < ActiveRecord::Base
                                size: { less_than: 5.megabytes }
   
   belongs_to :user
-  has_many :loans
+  has_many :loans, dependent: :destroy
+  has_many :pinimages, dependent: :destroy
   
   def self.search(search)
     if search

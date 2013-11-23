@@ -1,0 +1,13 @@
+<h4>Add an image to this gear:</h4>
+<%= simple_form_for([@pin, @pin.pinimages.build], html: { class: "form-horizontal"}) do |f| %>
+  <%= f.error_notification %>
+  <%= f.full_error :image_file_size, class: "alert alert-error" %>
+  <%= f.full_error :image_content_type, class: "alert alert-error" %>
+	<div class="form-inputs">
+		<%= f.input :image, label: "Upload an image" %>
+	    <%= f.input :caption, label: "Caption" %>
+	</div>    
+	<div class="form-actions">
+	  <%= f.button :submit, :value => "Add Image", class: "btn btn-primary" %>
+	</div>
+<% end %>

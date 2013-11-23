@@ -2,5 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @pin %> |
-<%= link_to 'Back', pins_path %>
+<%= link_to (content_tag :i, "", class: "icon-arrow-left", :title => 'Back'), @pin, class: "btn" %>

@@ -2,6 +2,7 @@ Omrails::Application.routes.draw do
 
   resources :pins do
     resources :loans
+    resources :pinimages
     member do
       match 'sendrequest' => 'pins#sendrequest'
       match 'reportabuse' => 'pins#reportabuse'
@@ -12,6 +13,8 @@ Omrails::Application.routes.draw do
   end
 
   resources :loans
+
+  resources :pinimages
 
   devise_for :users
   match 'users/:id' => 'users#show', as: :user

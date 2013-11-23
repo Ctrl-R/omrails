@@ -1,0 +1,33 @@
+<% if current_user.admin? %>
+<h1>Listing pinimages</h1>
+
+<table>
+  <tr>
+    <th>Image</th>
+    <th>Caption</th>
+    <th>Pin</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pinimages.each do |pinimage| %>
+  <tr>
+    <td><%= pinimage.image %></td>
+    <td><%= pinimage.caption %></td>
+    <td><%= pinimage.pin %></td>
+    <td><%= link_to 'Show', pinimage %></td>
+    <td><%= link_to 'Edit', edit_pinimage_path(pinimage) %></td>
+    <td><%= link_to 'Destroy', pinimage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pin image', new_pinimage_path %>
+<% else %>
+
+<p>Please go back, you don't belong here!</p>
+
+<% end %>

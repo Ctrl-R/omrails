@@ -1,2 +1,7 @@
-<%= link_to (image_tag pinimage.image(:thumb)), pinimage %><br />
-<p><%= pinimage.caption %></p>
+
+    <div class="item active">
+      <%= link_to (image_tag pinimage.image), pinimage %>
+      <div class="carousel-caption">
+        <p><%= pinimage.caption %></p>
+      </div>
+    </div>

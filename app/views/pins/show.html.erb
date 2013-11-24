@@ -1,7 +1,46 @@
 <div class="row">
   <div class="span6 offset3">
   	<div class="well">
-			<p align="center"><%= image_tag @pin.image %></p>
+				<div id="carousel-pinimages" class="carousel slide" data-ride="carousel">
+				<!-- Indicators -->
+				  <ol class="carousel-indicators">
+					  <li data-target="#carousel-pinimages" data-slide-to="0" class="active"></li>
+					  <% n=1 %>
+					  <% @pin.pinimages.each do |pinimage| %>
+						  <li data-target="#carousel-pinimages" data-slide-to="<%= n %>" class="active"></li>
+						  <% n=n+1 %>
+					  <% end %>
+					</ol>
+					
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+					 	<div class="item active">
+					  	<p align="center"><%= image_tag @pin.image %></p>
+					  </div>
+					  <% n=1 %>
+					  <% @pin.pinimages.each do |pinimage| %>
+						  <div class="item">
+					      <p align="center"><%= image_tag pinimage.image %>
+					      <div class="carousel-caption">
+					        <p><%= pinimage.caption %></p>
+					      </div>
+					      </p>
+					    </div>
+						<% n=n+1 %>
+						<% end %>
+					</div>
+					
+					<!-- Controls -->
+					<% if !@pin.pinimages.blank? %>
+					<a class="left carousel-control" href="#carousel-pinimages" data-slide="prev">
+					  <span class="icon-chevron-left"></span>
+					</a>
+					<a class="right carousel-control" href="#carousel-pinimages" data-slide="next">
+					  <span class="icon-chevron-right"></span>
+					</a>
+					<% end %>
+				</div>
+			</p>
 			
 			<% if @pin.forloan and @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
 				<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') + image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
@@ -43,19 +82,9 @@
 			<% end %>
 		</div>
 		
-		<% if !@pin.pinimages.blank? %>
-		<div class="well" %>
-			<h4>Additional Images <% if current_user == @pin.user %><!-- Button trigger modal --><button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addImageModal">Add Image</button><% end %></h4>
-				<div id="pinimages">
-				  <%= render @pin.pinimages %>
-				</div>
-		</div>
-		<% else %>
-		<% end %>
-
 		<% if current_user == @pin.user %>
 		<div class="well">
-			<% if @pin.pinimages.blank? %><!-- Button trigger modal --><button class="btn btn-primary" data-toggle="modal" data-target="#addImageModal">Add Image</button><% end %>
+			<!-- Button trigger modal --><button class="btn btn-primary" data-toggle="modal" data-target="#addImageModal">Add Image</button>
 			<!-- Image Modal -->
 			<div class="modal hide fade in" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">

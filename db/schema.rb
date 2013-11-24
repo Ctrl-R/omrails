@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131123212313) do
+ActiveRecord::Schema.define(:version => 20131124190042) do
 
   create_table "loans", :force => true do |t|
     t.string   "loanedto"
@@ -26,16 +26,8 @@ ActiveRecord::Schema.define(:version => 20131123212313) do
   add_index "loans", ["pin_id"], :name => "index_loans_on_pin_id"
   add_index "loans", ["user_id"], :name => "index_loans_on_user_id"
 
-  create_table "pinimages", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.string   "caption"
-    t.integer  "pin_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
+# Could not dump table "pinimages" because of following StandardError
+#   Unknown type 'reference' for column 'user'
 
   create_table "pins", :force => true do |t|
     t.string   "description"

@@ -5,9 +5,16 @@
 			<p>
 			  <%= @pinimage.caption %>
 			</p>
-				<%= link_to (content_tag :i, "", class: "icon-edit"), edit_pinimage_path(@pinimage), :class => "btn" %>
 				<%= link_to (content_tag :i, "", class: "icon-arrow-left"), :back, :class => "btn" %>
-				<%= link_to (content_tag :i, "", class: "icon-trash"), @pinimage, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn pull-right" %>
+				<% if current_user.admin? %>
+					<%= link_to (content_tag :i, "", class: "icon-edit"), edit_pinimage_path(@pinimage), :class => "btn" %>
+					<%= link_to (content_tag :i, "", class: "icon-trash"), @pinimage, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn pull-right" %>
+				<% else %>
+					<% if current_user.id == @pinimage.user_id %>
+						<%= link_to (content_tag :i, "", class: "icon-edit"), edit_pinimage_path(@pinimage), :class => "btn" %>
+						<%= link_to (content_tag :i, "", class: "icon-trash"), @pinimage, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn pull-right" %>
+					<% end %>
+				<% end %>
 		</div>
   </div>
 </div>

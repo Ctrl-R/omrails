@@ -1,9 +1,9 @@
 class CreateLoans < ActiveRecord::Migration
   def change
     create_table :loans do |t|
-      t.string :loanedTo
-      t.date :loanedOn
-      t.date :returnedOn
+      t.string :loanedto
+      t.date :loanedon
+      t.date :returnedon
       t.references :pin
       t.references :user
 

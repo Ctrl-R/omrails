@@ -1,5 +1,8 @@
 class PinimagesController < ApplicationController
   before_filter :authenticate_user!, except: [:show]
+
+  helper_method :sort_column, :sort_direction
+
   # GET /pinimages
   # GET /pinimages.json
   def index
@@ -43,6 +46,8 @@ class PinimagesController < ApplicationController
   def create
     @pin = Pin.find(params[:pin_id])
     @pinimage = @pin.pinimages.create(params[:pinimage])
+    @pinimage.user_id = current_user.id
+    @pinimage.save
     redirect_to pin_path(@pin)
 
 #    respond_to do |format|

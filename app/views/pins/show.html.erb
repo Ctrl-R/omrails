@@ -22,7 +22,12 @@
 						  <div class="item">
 					      <p align="center"><%= image_tag pinimage.image %>
 					      <div class="carousel-caption">
-					        <p><%= pinimage.caption %></p>
+					        <p>
+					        	<%= pinimage.caption %>
+					        	<% if current_user == @pin.user %>
+											<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pinimage_path(pinimage), class: "btn pull-right" %>
+										<% end %>
+					        </p>
 					      </div>
 					      </p>
 					    </div>

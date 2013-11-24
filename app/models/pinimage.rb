@@ -1,5 +1,5 @@
 class Pinimage < ActiveRecord::Base
-  attr_accessible :caption, :image, :pin
+  attr_accessible :caption, :image, :pin, :user_id
   
   has_attached_file :image, styles: { thumb: "150x150>", :convert_options => "-auto-orient"}
   
@@ -7,4 +7,5 @@ class Pinimage < ActiveRecord::Base
                                size: { less_than: 5.megabytes }
   
   belongs_to :pin
+  belongs_to :user
 end

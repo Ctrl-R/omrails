@@ -1,6 +1,11 @@
-<h3>Editing Additional Image</h3>
-
+<% if current_user.id == @pinimage.user_id %>
+<h3>Editing Additional Image for <%= @pinimage.pin.description %></h3>
+<%= image_tag @pinimage.image(:thumb) %>
 <%= render 'form' %>
 
-<%= link_to 'Show', @pinimage %> |
-<%= link_to 'Back', pin_path(@pinimage.pin_id) %>
+<%= link_to (content_tag :i, "", class: "icon-arrow-left"), :back, :class => "btn" %>
+<%= link_to (content_tag :i, "", class: "icon-trash"), @pinimage, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn pull-right" %>
+
+<% else %>
+<p>You do not belong here, please go back! <%= link_to (content_tag :i, "", class: "icon-arrow-left"), :back, :class => "btn" %></p>
+<% end %>

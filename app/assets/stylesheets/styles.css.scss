@@ -80,3 +80,13 @@ p.itemStatusHold {
   font-size: 18px;
   text-align: center;
 }
+
+#PinImage {
+  position: relative;
+}
+
+.favoriteStar {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}

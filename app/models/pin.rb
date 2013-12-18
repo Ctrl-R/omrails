@@ -1,5 +1,8 @@
 class Pin < ActiveRecord::Base
-  attr_accessible :description, :image, :forloan, :forsale, :category
+  
+  serialize :clubs,Array
+  
+  attr_accessible :description, :image, :forloan, :forsale, :category, :publicgear, :clubs
   
   has_attached_file :image, styles: { medium: "320x240>", :convert_options => "-auto-orient" }
   
@@ -12,6 +15,7 @@ class Pin < ActiveRecord::Base
   belongs_to :user
   has_many :loans, dependent: :destroy
   has_many :pinimages, dependent: :destroy
+  has_many :clubs
   
   def self.search(search)
     if search

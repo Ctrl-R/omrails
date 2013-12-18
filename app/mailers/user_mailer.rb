@@ -14,6 +14,22 @@ class UserMailer < ActionMailer::Base
     mail(:to => "#{@admin.name} <#{@admin.email}>", :from => @user.email, :reply_to => @user.email, :subject => "#{@user.name} has reported #{@pin.description} as abusive")
   end
   
+  def requestmembership(user, club)
+    @adminid = club.admin
+    @admin = User.find(@adminid)
+    @user = user
+    @club = club
+    mail(:to => "#{@admin.name} <#{@admin.email}>", :from => @user.email, :reply_to => @user.email, :subject => "#{@user.name} has requested membership to #{@club.name}")
+  end
+  
+  def membershipapproved(user, club)
+    @adminid = club.admin
+    @admin = User.find(@adminid)
+    @user = user
+    @club = club
+    mail(:from => "#{@admin.name} <#{@admin.email}>", :to => @user.email, :reply_to => @admin.email, :subject => "#{@admin.name} has approved your membership to #{@club.name}")
+  end
+  
 end
 
 #UserMailer.request_pin(current_user, @pin).deliver

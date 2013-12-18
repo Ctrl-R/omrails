@@ -6,9 +6,9 @@ class PinsController < ApplicationController
   
   def index
     if filter_categories.blank?
-      @pins = Pin.page(params[:page]).per_page(20).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:publicgear => true).search(params[:search])
     else
-      @pins = Pin.page(params[:page]).per_page(20).where(category: filter_categories).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(category: filter_categories, :publicgear => true).search(params[:search])
     end
 
     respond_to do |format|
@@ -19,9 +19,9 @@ class PinsController < ApplicationController
 
   def showforloan
     if filter_categories.blank?
-      @pins = Pin.page(params[:page]).per_page(20).where(:forloan => true).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:publicgear => true, :forloan => true).search(params[:search])
     else
-      @pins = Pin.page(params[:page]).per_page(20).where(:forloan => true, category: filter_categories).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:forloan => true, category: filter_categories, :publicgear => true).search(params[:search])
     end
 
     respond_to do |format|
@@ -32,9 +32,9 @@ class PinsController < ApplicationController
 
   def showforsale
     if filter_categories.blank?
-      @pins = Pin.page(params[:page]).per_page(20).where(:forsale => true).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:forsale => true, :publicgear => true).search(params[:search])
     else
-      @pins = Pin.page(params[:page]).per_page(20).where(:forsale => true, category: filter_categories).search(params[:search])
+      @pins = Pin.page(params[:page]).per_page(20).where(:forsale => true, category: filter_categories, :publicgear => true).search(params[:search])
     end
 
     respond_to do |format|
@@ -57,6 +57,7 @@ class PinsController < ApplicationController
   # GET /pins/new
   # GET /pins/new.json
   def new
+    @userclubs = Club.where('userlist like ?', ("% " + current_user.id.to_s + "\n%"))
     @pin = current_user.pins.new
 
     respond_to do |format|
@@ -67,6 +68,7 @@ class PinsController < ApplicationController
 
   # GET /pins/1/edit
   def edit
+    @userclubs = Club.where('userlist like ?', ("% " + current_user.id.to_s + "\n%"))
     if current_user == Pin.find(params[:id]).user
       @pin = current_user.pins.find(params[:id])
     else

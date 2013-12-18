@@ -12,6 +12,15 @@ Omrails::Application.routes.draw do
     end
   end
 
+  resources :clubs do
+    member do
+      match 'joinclub' => 'clubs#joinclub'
+      match 'approvemember' => 'clubs#approvemember'
+      match 'removemember' => 'clubs#removemember'
+      match 'banmember' => 'clubs#banmember'
+    end
+  end
+
   resources :loans
 
   resources :pinimages

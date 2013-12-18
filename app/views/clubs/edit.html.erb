@@ -1,0 +1,74 @@
+<% if @club.admin == current_user.id %>
+	<h2><%= @club.name %> Administration</h2>
+	
+	<!-- Button trigger modal -->
+	<button class="btn btn-primary" data-toggle="modal" data-target="#currentMembersModal">View Current Members</button>
+	<!-- Current User Modal -->
+	<div class="modal hide fade in" id="currentMembersModal" tabindex="-1" role="dialog" aria-labelledby="currentMembersModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="currentMembersModalLabel">Current Members</h4>
+	      </div>
+	      <div class="modal-body">
+					<%= render 'currentmembers' %>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<% if !@club.pendinguser.blank? %>
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary" data-toggle="modal" data-target="#pendingMembersModal">View Pending Members</button>
+		<!-- Pending User Modal -->
+		<div class="modal hide fade in" id="pendingMembersModal" tabindex="-1" role="dialog" aria-labelledby="pendingMembersModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="pendingMembersModalLabel">Members Pending</h4>
+		      </div>
+		      <div class="modal-body">
+						<%= render 'pendingmembers' %>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	<% end %>
+	
+	<% if !@club.banneduser.blank? %>
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary" data-toggle="modal" data-target="#bannedMembersModal">View Banned Members</button>
+		<!-- Pending User Modal -->
+		<div class="modal hide fade in" id="bannedMembersModal" tabindex="-1" role="dialog" aria-labelledby="bannedMembersModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="bannedMembersModalLabel">Banned Members</h4>
+		      </div>
+		      <div class="modal-body">
+						<%= render 'bannedmembers' %>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	<% end %>
+	
+	<br /><br />
+	
+	<div class="well">
+		<h3>Club Details</h3>
+		<%= render 'form' %>
+		
+		<%= link_to 'View Club', @club, :class => "btn btn-primary" %>
+		<%= link_to 'Back', clubs_path, :class => "btn btn-primary" %>
+	</div>
+<% else %>
+	<div class="well">
+		<h5>Only admins of <%= @club.name %> can administer it.</h5>
+		<%= link_to 'View Club', @club, :class => "btn btn-primary" %>
+		<%= link_to 'Back', clubs_path, :class => "btn btn-primary" %>
+	</div>
+<% end %>

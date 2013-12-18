@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131124190042) do
+ActiveRecord::Schema.define(:version => 20131218013608) do
+
+  create_table "clubs", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "location"
+    t.boolean  "listed"
+    t.text     "userlist"
+    t.integer  "admin"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.text     "pendinguser"
+    t.text     "banneduser"
+  end
 
   create_table "loans", :force => true do |t|
     t.string   "loanedto"
@@ -41,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20131124190042) do
     t.boolean  "forloan"
     t.boolean  "forsale"
     t.string   "category"
+    t.text     "clubs"
+    t.boolean  "publicgear"
   end
 
   add_index "pins", ["user_id"], :name => "index_pins_on_user_id"
@@ -65,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20131124190042) do
     t.string   "unconfirmed_email"
     t.text     "favorites"
     t.boolean  "admin"
+    t.text     "clubs"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

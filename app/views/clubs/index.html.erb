@@ -1,0 +1,15 @@
+<%= link_to 'New Club', new_club_path, :class => "btn btn-primary pull-right" %>
+<h1>Clubs</h1>
+
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+	<%= render @clubs %>
+</table>

@@ -6,11 +6,13 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :confirmable
 
   serialize :favorites,Array
+  serialize :clubs,Array
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :favorites, :admin
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :favorites, :admin, :clubs
   # attr_accessible :title, :body
   
   has_many :pins, dependent: :destroy
-  has_many :loans, dependent: :destroy  
+  has_many :loans, dependent: :destroy
+  has_many :clubs
 end

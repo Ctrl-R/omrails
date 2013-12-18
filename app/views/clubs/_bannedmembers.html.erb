@@ -1,0 +1,10 @@
+<div class="well">
+	<table class="table table-striped">
+		<% @club.banneduser.each do |baduser| %>
+		<tr>
+			<td><%= User.find(baduser).name %></td>
+			<td width="50px"><%= link_to "Unban", banmember_club_path(@club, :banuser => baduser), :class => "btn btn-primary", data: { confirm: 'Are you sure you want to uban this user?' } %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>

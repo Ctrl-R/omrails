@@ -3,7 +3,11 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @pins = @user.pins.page(params[:page]).per_page(20)
+    if @user.id == current_user.id
+      @pins = @user.pins.page(params[:page]).per_page(20)
+    else
+      @pins = @user.pins.page(params[:page]).per_page(20).where(:publicgear => true)
+    end
   end
     
 end

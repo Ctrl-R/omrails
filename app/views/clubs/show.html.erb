@@ -1,0 +1,110 @@
+<% if @club.userlist.include?(current_user.id) %>
+
+  <h1><%= @club.name %></h1>
+	<% if !@club.image.blank? %>
+		<%= image_tag @club.image(:small) %>
+	<% end %>
+	
+	<div class="well">
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary" data-toggle="modal" data-target="#currentMembersModal">View Current Members</button>
+		<!-- Current User Modal -->
+		<div class="modal hide fade in" id="currentMembersModal" tabindex="-1" role="dialog" aria-labelledby="currentMembersModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="currentMembersModalLabel">Members</h4>
+		      </div>
+		      <div class="modal-body">
+						<%= render 'currentmembers' %>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		<% if @club.admin == current_user.id %>
+			<%= link_to 'Administer', edit_club_path(@club), :class => "btn btn-primary" %>
+		<% end %>
+	</div>
+	
+	<div class="well">
+		<p>
+		  <b><%= @club.description %></b><br /><br />
+		  <b>Location:</b><%= @club.location %>
+		</p>
+		
+		<h4>Club Pins</h4>
+		<div id="pins">
+		<% @pins.each do |pin| %>
+			<div class="box">
+				
+				<div id="PinImage">
+					<%= link_to (image_tag pin.image(:medium)), pin %>
+					
+					<% if current_user %>
+						<% if !current_user.favorites.blank? %>
+					  	<% if !current_user.favorites.include?(pin.id) %>
+					  		<%= link_to image_tag("star-empty.png"), startoggle_pin_path(pin), :title => 'Favorite', :class => "favoriteStar" %>
+					  	<% else %>
+					  		<%= link_to image_tag("star.png"), startoggle_pin_path(pin), :title => 'Unfavorite', :class => "favoriteStar" %>
+					  	<% end %>
+					  <% else %>
+					  	<%= link_to image_tag("star-empty.png"), startoggle_pin_path(pin), :title => 'Favorite', :class => "favoriteStar" %>
+					  <% end %>
+					<% end %>
+				</div>
+				
+				<% if pin.forloan and pin.forsale and (pin.loans.blank? or !pin.loans.last[:returnedon].blank?) %>
+					<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') + image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
+				<% else %>
+					<% if pin.forloan and (pin.loans.blank? or !pin.loans.last[:returnedon].blank?) %>
+						<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') %></p>
+					<% else %>
+						<% if pin.forsale and (pin.loans.blank? or !pin.loans.last[:returnedon].blank?) %>
+							<p class="pull-right description"><%= image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
+						<% else %>
+							<p class="pull-right description"><%= image_tag('hold.png', :size => '20x20', :title => 'Item is on hold') %></p>
+						<% end %>
+					<% end %>
+				<% end %>
+				
+				<p class="description">
+					<%= pin.description %>
+				</p>
+				<p class="category">
+					<%= pin.category %>
+				</p>
+				<p class="postedby">
+					Posted by <%= link_to pin.user.name, pin.user %> <%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(pin), data: { confirm: 'Are you sure you want to report this item as abusive?' }, class: "pull-right" %>
+				</p>
+				
+				<% if !current_user.blank? %>
+					<% current_user.admin ||= FALSE %>
+					<% current_user.save %>
+					<% if current_user == pin.user %>  
+						<p>
+							<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pin_path(pin), class: "btn" %>
+							<%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), pin, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %>
+						</p>
+					<% else %>
+						<% if current_user.admin == TRUE %>
+							<p>
+								<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pin_path(pin), class: "btn" %>
+								<%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), pin, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %>
+							</p>
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+		<% end %>
+		</div>
+		<br />
+		<%= link_to 'Back', clubs_path, :class => "btn btn-primary" %>
+	</div>
+<% else %>
+	<div class="well">
+		<h5>You are not a member of <%= @club.name %></h5>
+		<%= link_to 'Join Club', joinclub_club_path(@club), :class => "btn btn-primary" %>
+		<%= link_to 'Back', clubs_path, :class => "btn btn-primary" %>
+	</div>
+<% end %>

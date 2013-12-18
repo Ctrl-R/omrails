@@ -1,216 +1,223 @@
-<% if (@pin.user_id == current_user.id) or (@pin.publicgear?) %>
-	<div class="row">
-	  <div class="span6 offset3">
-	  	<div class="well" id="PinImage">
-					<div id="carousel-pinimages" class="carousel slide" data-ride="carousel">
-					<!-- Indicators -->
-					  <ol class="carousel-indicators">
-						  <li data-target="#carousel-pinimages" data-slide-to="0" class="active"></li>
-						  <% n=1 %>
-						  <% @pin.pinimages.each do |pinimage| %>
-							  <li data-target="#carousel-pinimages" data-slide-to="<%= n %>" class="active"></li>
-							  <% n=n+1 %>
-						  <% end %>
-						</ol>
-						
-						<!-- Wrapper for slides -->
-						<div class="carousel-inner">
-						 	<div class="item active">
-						  	<p align="center">
-						  		<%= image_tag @pin.image %>
-								</p>
-						  </div>
-						  <% n=1 %>
-						  <% @pin.pinimages.each do |pinimage| %>
-							  <div class="item">
-						      <p align="center"><%= image_tag pinimage.image %>
-						      <div class="carousel-caption">
-						        <p>
-						        	<%= pinimage.caption %>
-						        	<% if current_user == @pin.user %>
-												<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pinimage_path(pinimage), class: "btn pull-right" %>
-											<% end %>
-						        </p>
-						      </div>
-						      </p>
-						    </div>
-							<% n=n+1 %>
+<% if user_signed_in? %>
+	<% if (@pin.user_id == current_user.id) or (@pin.publicgear?) %>
+		<div class="row">
+		  <div class="span6 offset3">
+		  	<div class="well" id="PinImage">
+						<div id="carousel-pinimages" class="carousel slide" data-ride="carousel">
+						<!-- Indicators -->
+						  <ol class="carousel-indicators">
+							  <li data-target="#carousel-pinimages" data-slide-to="0" class="active"></li>
+							  <% n=1 %>
+							  <% @pin.pinimages.each do |pinimage| %>
+								  <li data-target="#carousel-pinimages" data-slide-to="<%= n %>" class="active"></li>
+								  <% n=n+1 %>
+							  <% end %>
+							</ol>
+							
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+							 	<div class="item active">
+							  	<p align="center">
+							  		<%= image_tag @pin.image %>
+									</p>
+							  </div>
+							  <% n=1 %>
+							  <% @pin.pinimages.each do |pinimage| %>
+								  <div class="item">
+							      <p align="center"><%= image_tag pinimage.image %>
+							      <div class="carousel-caption">
+							        <p>
+							        	<%= pinimage.caption %>
+							        	<% if current_user == @pin.user %>
+													<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pinimage_path(pinimage), class: "btn pull-right" %>
+												<% end %>
+							        </p>
+							      </div>
+							      </p>
+							    </div>
+								<% n=n+1 %>
+								<% end %>
+							</div>
+							
+							<!-- Controls -->
+							<% if !@pin.pinimages.blank? %>
+							<a class="left carousel-control" href="#carousel-pinimages" data-slide="prev">
+							  <span class="icon-chevron-left"></span>
+							</a>
+							<a class="right carousel-control" href="#carousel-pinimages" data-slide="next">
+							  <span class="icon-chevron-right"></span>
+							</a>
 							<% end %>
 						</div>
-						
-						<!-- Controls -->
-						<% if !@pin.pinimages.blank? %>
-						<a class="left carousel-control" href="#carousel-pinimages" data-slide="prev">
-						  <span class="icon-chevron-left"></span>
-						</a>
-						<a class="right carousel-control" href="#carousel-pinimages" data-slide="next">
-						  <span class="icon-chevron-right"></span>
-						</a>
-						<% end %>
-					</div>
-				</p>
-				
-				<% if @pin.forloan and @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
-					<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') + image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
-				<% else %>
-					<% if @pin.forloan and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
-						<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') %></p>
+					</p>
+					
+					<% if @pin.forloan and @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
+						<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') + image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
 					<% else %>
-						<% if @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
-							<p class="pull-right description"><%= image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
+						<% if @pin.forloan and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
+							<p class="pull-right description"><%= image_tag('swap.png', :size => '19x20', :title => 'For Loan') %></p>
 						<% else %>
-							<p class="pull-right description"><%= image_tag('hold.png', :size => '20x20', :title => 'Item is on hold') %></p>
+							<% if @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
+								<p class="pull-right description"><%= image_tag('buy.png', :size => '20x20', :title => 'For Sale') %></p>
+							<% else %>
+								<p class="pull-right description"><%= image_tag('hold.png', :size => '20x20', :title => 'Item is on hold') %></p>
+							<% end %>
 						<% end %>
 					<% end %>
-				<% end %>
+					
+					<p class="description">
+					  <%= @pin.description %>
+					</p>
+					<p class="category">
+						<%= @pin.category %>
+					</p>
+					<p class="postedby">
+					  Posted by <%= link_to @pin.user.name, @pin.user %> <%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(@pin), data: { confirm: 'Are you sure you want to report this item as abusive?' }, class: "pull-right" %>
+					</p><br />
+					<%= link_to (content_tag :i, "", class: "icon-arrow-left", :title => 'Back'), pins_path, class: "btn" %>
+					<% if current_user == @pin.user %>
+						<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pin_path(@pin), class: "btn" %> <%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), @pin, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn pull-right', :title => 'Delete Pin' %>
+					<% end %>
+					<% if current_user %>
+						<% if !current_user.favorites.blank? %>
+					  	<% if !current_user.favorites.include?(@pin.id) %>
+					  		<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin), :title => 'Favorite', :class => "favoriteStar") %>
+					  	<% else %>
+					  		<%=link_to( image_tag("star.png"), startoggle_pin_path(@pin), :title => 'Unfavorite', :class => "favoriteStar") %>
+					  	<% end %>
+					  <% else %>
+					  	<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin), :title => 'Favorite', :class => "favoriteStar") %>
+					  <% end %>
+					<% end %>
+				</div>
 				
-				<p class="description">
-				  <%= @pin.description %>
-				</p>
-				<p class="category">
-					<%= @pin.category %>
-				</p>
-				<p class="postedby">
-				  Posted by <%= link_to @pin.user.name, @pin.user %> <%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_pin_path(@pin), data: { confirm: 'Are you sure you want to report this item as abusive?' }, class: "pull-right" %>
-				</p><br />
-				<%= link_to (content_tag :i, "", class: "icon-arrow-left", :title => 'Back'), pins_path, class: "btn" %>
 				<% if current_user == @pin.user %>
-					<%= link_to (content_tag :i, "", class: "icon-edit", :title => 'Edit'), edit_pin_path(@pin), class: "btn" %> <%= link_to (content_tag :i, "", class: "icon-trash", :title => 'Delete'), @pin, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn pull-right', :title => 'Delete Pin' %>
-				<% end %>
-				<% if current_user %>
-					<% if !current_user.favorites.blank? %>
-				  	<% if !current_user.favorites.include?(@pin.id) %>
-				  		<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin), :title => 'Favorite', :class => "favoriteStar") %>
-				  	<% else %>
-				  		<%=link_to( image_tag("star.png"), startoggle_pin_path(@pin), :title => 'Unfavorite', :class => "favoriteStar") %>
-				  	<% end %>
-				  <% else %>
-				  	<%=link_to( image_tag("star-empty.png"), startoggle_pin_path(@pin), :title => 'Favorite', :class => "favoriteStar") %>
-				  <% end %>
-				<% end %>
-			</div>
-			
-			<% if current_user == @pin.user %>
-			<div class="well">
-				<!-- Button trigger modal --><button class="btn btn-primary" data-toggle="modal" data-target="#addImageModal">Add Image</button>
-				<!-- Image Modal -->
-				<div class="modal hide fade in" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				        <h4 class="modal-title" id="addImageModalLabel"><%= @pin.description %></h4>
-				      </div>
-				      <div class="modal-body">
-								<%= render 'pinimageForm' %>
-				      </div>
-				    </div><!-- /.modal-content -->
-				  </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-				<!-- Button trigger modal -->
-				<button class="btn btn-primary" data-toggle="modal" data-target="#loansModal">
-				  View/Add Loans
-				</button>
-			</div>
-				<!-- Loans Modal -->
-				<div class="modal hide fade in" id="loansModal" tabindex="-1" role="dialog" aria-labelledby="loansModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				        <h4 class="modal-title" id="loansModalLabel"><%= @pin.description %></h4>
-				      </div>
-				      <div class="modal-body">
-				        <p>
-							<h4>Loan History:<!-- Button trigger modal --><button class="btn btn-primary pull-right" data-toggle="modal" data-target="#loansSubModal">Add Loan</button></h4>
-							<% if @pin.loans.blank? %>
-								<p>No loans saved for this item.</p>
-							<% else %>
-								<table class="table table-striped">
-				                  <thead>
-				                      <tr>
-		                              <th>Loaned To</th>
-		                              <th>Loaned On</th>
-		                              <th>Returned On</th>
-		                              <th></th>
-		                              <th></th>
-		                          </tr>
-				                  </thead>
-				                  <tbody>
-				                        <%= render @pin.loans %>
-				                  </tbody>
-				                </table>
-			                <% end %>
-						</p><br />
-						<div class="modal hide fade in" id="loansSubModal" tabindex="-1" role="dialog" aria-labelledby="loansSubModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						        <h4 class="modal-title" id="loansSubModalLabel"><%= @pin.description %></h4>
-						      </div>
-						      <div class="modal-body">
-										<p>
-											<b>Loan Equipment:</b>
-											<%= simple_form_for([@pin, @pin.loans.build], html: { class: "form-horizontal"}) do |f| %>
-											  <%= f.input :loanedto, label: "Loaned To" %>
-											  <%= f.input :loanedon, label: "Loaned On" %>
-											  
-											  <div class="form-actions">
-											    <%= f.button :submit, class: "btn btn-primary" %>
-											  </div>
-											<% end %>
-										</p>
-							    </div><!-- /.modal-content -->
-							  </div><!-- /.modal-dialog -->
-							</div><!-- /.modal -->
-				    </div><!-- /.modal-content -->
-				  </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-			<% else %>
-			  <% if user_signed_in? %>
-					<div class="well" style="text-align: center">
-						<% if @pin.forloan and @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
-							<p class="itemStatus">Available for Loan or Sale</p><br />
-							<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary", data: { confirm: 'Are you sure you want to request contact?' } %>
-							<p class="description">
-								<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
-							</p>
-						<% else %>
-							<% if @pin.forloan and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
-								<p class="itemStatus">Available for Loan</p>
+				<div class="well">
+					<!-- Button trigger modal --><button class="btn btn-primary" data-toggle="modal" data-target="#addImageModal">Add Image</button>
+					<!-- Image Modal -->
+					<div class="modal hide fade in" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title" id="addImageModalLabel"><%= @pin.description %></h4>
+					      </div>
+					      <div class="modal-body">
+									<%= render 'pinimageForm' %>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+					<!-- Button trigger modal -->
+					<button class="btn btn-primary" data-toggle="modal" data-target="#loansModal">
+					  View/Add Loans
+					</button>
+				</div>
+					<!-- Loans Modal -->
+					<div class="modal hide fade in" id="loansModal" tabindex="-1" role="dialog" aria-labelledby="loansModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title" id="loansModalLabel"><%= @pin.description %></h4>
+					      </div>
+					      <div class="modal-body">
+					        <p>
+								<h4>Loan History:<!-- Button trigger modal --><button class="btn btn-primary pull-right" data-toggle="modal" data-target="#loansSubModal">Add Loan</button></h4>
+								<% if @pin.loans.blank? %>
+									<p>No loans saved for this item.</p>
+								<% else %>
+									<table class="table table-striped">
+					                  <thead>
+					                      <tr>
+			                              <th>Loaned To</th>
+			                              <th>Loaned On</th>
+			                              <th>Returned On</th>
+			                              <th></th>
+			                              <th></th>
+			                          </tr>
+					                  </thead>
+					                  <tbody>
+					                        <%= render @pin.loans %>
+					                  </tbody>
+					                </table>
+				                <% end %>
+							</p><br />
+							<div class="modal hide fade in" id="loansSubModal" tabindex="-1" role="dialog" aria-labelledby="loansSubModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							        <h4 class="modal-title" id="loansSubModalLabel"><%= @pin.description %></h4>
+							      </div>
+							      <div class="modal-body">
+											<p>
+												<b>Loan Equipment:</b>
+												<%= simple_form_for([@pin, @pin.loans.build], html: { class: "form-horizontal"}) do |f| %>
+												  <%= f.input :loanedto, label: "Loaned To" %>
+												  <%= f.input :loanedon, label: "Loaned On" %>
+												  
+												  <div class="form-actions">
+												    <%= f.button :submit, class: "btn btn-primary" %>
+												  </div>
+												<% end %>
+											</p>
+								    </div><!-- /.modal-content -->
+								  </div><!-- /.modal-dialog -->
+								</div><!-- /.modal -->
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+				<% else %>
+				  <% if user_signed_in? %>
+						<div class="well" style="text-align: center">
+							<% if @pin.forloan and @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
+								<p class="itemStatus">Available for Loan or Sale</p><br />
 								<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary", data: { confirm: 'Are you sure you want to request contact?' } %>
 								<p class="description">
 									<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 								</p>
 							<% else %>
-								<% if @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
-									<p class="itemStatus">Available for Sale</p><br />
+								<% if @pin.forloan and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
+									<p class="itemStatus">Available for Loan</p>
 									<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary", data: { confirm: 'Are you sure you want to request contact?' } %>
 									<p class="description">
 										<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
 									</p>
 								<% else %>
-									<p class="itemStatusHold">This item is on hold.</p>
-									<p>
-										Please check back later to see if it becomes available.
-									</p>
+									<% if @pin.forsale and (@pin.loans.blank? or !@pin.loans.last[:returnedon].blank?) %>
+										<p class="itemStatus">Available for Sale</p><br />
+										<%= link_to "Request Contact", sendrequest_pin_path(@pin), class: "btn btn-primary", data: { confirm: 'Are you sure you want to request contact?' } %>
+										<p class="description">
+											<small>The owner of this gear will receive an email with<br />your email address as the Reply-To address.</small>
+										</p>
+									<% else %>
+										<p class="itemStatusHold">This item is on hold.</p>
+										<p>
+											Please check back later to see if it becomes available.
+										</p>
+									<% end %>
 								<% end %>
 							<% end %>
-						<% end %>
-					</div>
-				<% else %>
-					<div class="well" style="text-align: center">
-						<p class="itemStatusHold">You must be logged in to request contact.</p>
-					</div>
+						</div>
+					<% else %>
+						<div class="well" style="text-align: center">
+							<p class="itemStatusHold">You must be logged in to request contact.</p>
+						</div>
+					<% end %>
 				<% end %>
-			<% end %>
+			</div>
 		</div>
-	</div>
+	<% else %>
+		<div>
+			<h4>
+				This gear is not listed publicly.
+			</h4>
+		</div>
+	<% end %>
 <% else %>
-	<div>
-		<h4>
-			This gear is not listed publicly.
-		</h4>
+	<div style="text-align: center">
+		<h4>You must be signed in to view gear details.</h4>
+		<p><%= link_to "Login", new_user_session_path, :class => "btn btn-primary" %></p>
 	</div>
 <% end %>

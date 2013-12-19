@@ -77,11 +77,11 @@ class ClubsController < ApplicationController
   # DELETE /clubs/1.json
   def destroy
     @club = Club.find(params[:id])
-    @club.destroy
-
-    respond_to do |format|
-      format.html { redirect_to clubs_url }
-      format.json { head :no_content }
+    if @club.userlist.size == 1
+      @club.destroy
+      redirect_to clubs_path, notice: @club.name + ' has been closed.'
+    else
+      redirect_to clubs_path, notice: 'You cannot close a group that has more than one member.'
     end
   end
   
@@ -128,6 +128,26 @@ class ClubsController < ApplicationController
         UserMailer.membershipapproved(@user, @club).deliver
         redirect_to edit_club_path(@club), notice: @newmember.name + ' has been approved.'
       end
+    else
+      redirect_to edit_club_path(@club), notice: 'Only current admin can do that!'
+    end
+  end
+  
+  def changeadmin
+    @user = current_user
+    @club = Club.find(params[:id])
+    @newadmin = User.find(params[:changeadminuser])
+    if user_signed_in? and (@club.admin == @user.id)
+      if @club.userlist.include?(@newadmin.id)
+        @club.admin = @newadmin.id
+        @club.save
+        UserMailer.changeadminnotice(@user, @newadmin, @club).deliver
+        redirect_to club_path(@club), notice: @newadmin.name + ' has been set as admin of ' + @club.name + '.'
+      else
+        redirect_to edit_club_path(@club), notice: 'New admin must be a current member of ' + @club.name + '.'
+      end
+    else
+      redirect_to edit_club_path(@club), notice: 'Only current admin of ' + @club.name + ' can transfer admin rights!'
     end
   end
   
@@ -135,7 +155,7 @@ class ClubsController < ApplicationController
     @user = current_user
     @club = Club.find(params[:id])
     @removemember = User.find(params[:removeuser])
-    if user_signed_in?
+    if user_signed_in? and (@club.admin == @user.id)
       if @club.admin != @removemember.id
         if @club.userlist.include?(@removemember.id)
           @club.userlist.delete(@removemember.id)
@@ -149,6 +169,28 @@ class ClubsController < ApplicationController
       else
         redirect_to edit_club_path(@club), notice: 'Current admin cannot be removed.'
       end
+    else
+      redirect_to edit_club_path(@club), notice: 'Only current admin can do that!'
+    end
+  end
+  
+  def leaveclub
+    @user = current_user
+    @club = Club.find(params[:id])
+    if user_signed_in?
+      if @club.admin != @user.id
+        if @club.userlist.include?(@user.id)
+          @club.userlist.delete(@user.id)
+          @club.save
+          redirect_to clubs_path, notice: 'You have left ' + @club.name + '.'
+        else
+          redirect_to clubs_path, notice: 'You are not a member of that club.'
+        end
+      else
+        redirect_to clubs_path, notice: 'Current admin cannot leave, please transfer admin rights first.'
+      end
+    else
+      redirect_to new_user_session_path
     end
   end
   
@@ -156,7 +198,7 @@ class ClubsController < ApplicationController
     @user = current_user
     @club = Club.find(params[:id])
     @banmember = User.find(params[:banuser])
-    if user_signed_in?
+    if user_signed_in? and (@club.admin == @user.id)
       if @club.admin != @banmember.id
         if @club.userlist.include?(@banmember.id)
           @club.userlist.delete(@banmember.id)
@@ -180,6 +222,8 @@ class ClubsController < ApplicationController
       else
         redirect_to edit_club_path(@club), notice: 'Current admin cannot be banned.'
       end
+    else
+      redirect_to edit_club_path(@club), notice: 'Only current admin can do that!'
     end
   end
   

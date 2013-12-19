@@ -16,7 +16,9 @@ Omrails::Application.routes.draw do
     member do
       match 'joinclub' => 'clubs#joinclub'
       match 'approvemember' => 'clubs#approvemember'
+      match 'changeadmin' => 'clubs#changeadmin'
       match 'removemember' => 'clubs#removemember'
+      match 'leaveclub' => 'clubs#leaveclub'
       match 'banmember' => 'clubs#banmember'
     end
   end

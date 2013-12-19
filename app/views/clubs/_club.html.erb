@@ -1,19 +1,19 @@
 <% if !club.banneduser.include?(current_user.id) %>
-	  <tr>
-	    <td><%= club.name %></td>
-	    <td><%= club.description %></td>
-	    <td><%= club.location %></td>
-	    <% if !club.userlist.include?(current_user.id) %>
-	  	  <td width="100px" style="text-align: center"><%= link_to 'Join Club', joinclub_club_path(club), :class => "btn btn-primary" %></td>
-	    <% else %>
-		    <td width="100px" style="text-align: center"><%= link_to 'Enter Club', club, :class => "btn btn-primary" %></td>
-	    <% end %>
-	    <% if club.admin == current_user.id %>
-	    	<td width="100px" style="text-align: center"><%= link_to 'Edit', edit_club_path(club), :class => "btn btn-primary" %></td>
-	    	<td width="100px" style="text-align: center"><%= link_to 'Destroy', club, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-warning" %></td>
-	    <% else %>
-	    	<td></td>
-	    	<td></td>
-	    <% end %>
-	  </tr>
-	<% end %>
+  <tr>
+    <td><%= club.name %></td>
+    <td><%= club.description %></td>
+    <td><%= club.location %></td>
+    <td style="text-align: center">
+    <% if !club.userlist.include?(current_user.id) %>
+	  	  <%= link_to 'Join', joinclub_club_path(club), :class => "btn btn-primary" %>
+    <% else %>
+	    <%= link_to 'Enter', club, :class => "btn btn-primary" %>
+	    <%= link_to 'Leave', leaveclub_club_path(club), :class => "btn btn-primary" %>
+    <% end %>
+    <% if club.admin == current_user.id %>
+    	<%= link_to 'Edit', edit_club_path(club), :class => "btn btn-primary" %>
+    	<%= link_to 'Close', club, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-warning" %>
+    <% end %>
+    </td>
+  </tr>
+<% end %>

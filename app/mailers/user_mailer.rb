@@ -30,6 +30,13 @@ class UserMailer < ActionMailer::Base
     mail(:from => "#{@admin.name} <#{@admin.email}>", :to => @user.email, :reply_to => @admin.email, :subject => "#{@admin.name} has approved your membership to #{@club.name}")
   end
   
+  def changeadminnotice(user, newadmin, club)
+    @admin = newadmin
+    @user = user
+    @club = club
+    mail(:from => "#{@user.name} <#{@user.email}>", :to => @admin.email, :reply_to => @user.email, :subject => "#{@user.name} has made you the administrator of #{@club.name}")
+  end
+  
 end
 
 #UserMailer.request_pin(current_user, @pin).deliver

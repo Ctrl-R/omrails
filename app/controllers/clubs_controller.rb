@@ -5,7 +5,6 @@ class ClubsController < ApplicationController
   helper_method :sort_column, :sort_direction, :filter_location
   
   def index
-    @userclubs = Club.order(sort_column + " " + sort_direction)
     if filter_location.blank?
       @clubs = Club.order(sort_column + " " + sort_direction).search(params[:search])
     else

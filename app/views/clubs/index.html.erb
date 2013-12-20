@@ -14,31 +14,6 @@
 </script>
 
 <% if params[:search].blank? %>
-	<h4>Your Memberships 
-		<% if !params[:locationfilter].blank? %>
-			in <%= params[:locationfilter] %>
-		<% end %>
-	</h4>
-<% else %>
-	 <h4>Your Memberships 
-		<% if !params[:locationfilter].blank? %>
-			in <%= params[:locationfilter] %>
-		<% end %>
-		 Including "<%= params[:search] %>"
-		</h4>
-<% end %>
-<table class="table table-striped">
-  <tr>
-    <th><%= sortable "name", "Name" %></th>
-    <th>Description</th>
-    <th><%= sortable "location", "Location" %></th>
-    <th style="text-align: center">Privacy</th>
-    <th></th>
-  </tr>
-	<%= render @userclubs %>
-</table>
-
-<% if params[:search].blank? %>
 	<h4>All  
 		<% if !params[:locationfilter].blank? %>
 			Clubs in <%= params[:locationfilter] %>

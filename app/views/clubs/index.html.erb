@@ -13,7 +13,20 @@
  		document.getElementById('search').focus();
 </script>
 
-<h4>Your Memberships</h4>
+<% if params[:search].blank? %>
+	<h4>Your Memberships 
+		<% if !params[:locationfilter].blank? %>
+			in <%= params[:locationfilter] %>
+		<% end %>
+	</h4>
+<% else %>
+	 <h4>Your Memberships 
+		<% if !params[:locationfilter].blank? %>
+			in <%= params[:locationfilter] %>
+		<% end %>
+		 Including "<%= params[:search] %>"
+		</h4>
+<% end %>
 <table class="table table-striped">
   <tr>
     <th><%= sortable "name", "Name" %></th>

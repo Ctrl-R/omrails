@@ -7,7 +7,7 @@ class Club < ActiveRecord::Base
   
   attr_accessible :admin, :description, :image, :listed, :location, :name, :userlist, :pendinguser, :banneduser
   
-  has_attached_file :image, styles: { medium: "320x240>", :convert_options => "-auto-orient" }
+  has_attached_file :image, styles: { small: "120x100>", :convert_options => "-auto-orient" }
   
   validates :name, presence: true
   validates :description, presence: true

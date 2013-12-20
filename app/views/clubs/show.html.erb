@@ -1,9 +1,11 @@
 <% if @club.userlist.include?(current_user.id) %>
 
-  <h1><%= @club.name %></h1>
-	<% if !@club.image.blank? %>
-		<%= image_tag @club.image(:small) %>
-	<% end %>
+  <h1>
+  	<% if !@club.image.blank? %>
+			<%= image_tag @club.image(:small) %>
+		<% end %>
+		<%= @club.name %>
+	</h1>
 	
 	<div class="well">
 		<!-- Button trigger modal -->
@@ -25,6 +27,7 @@
 		<% if @club.admin == current_user.id %>
 			<%= link_to 'Administer', edit_club_path(@club), :class => "btn btn-primary" %>
 		<% end %>
+		<%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_club_path(@club), data: { confirm: 'Are you sure you want to report this club as abusive?' }, class: "btn pull-right" %>
 		<%= link_to 'End Membership', leaveclub_club_path(@club), data: { confirm: 'Are you sure you want to leave ' + @club.name + '?' }, :class => "btn btn-warning pull-right" %>
 	</div>
 	

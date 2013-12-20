@@ -37,6 +37,14 @@ class UserMailer < ActionMailer::Base
     mail(:from => "#{@user.name} <#{@user.email}>", :to => @admin.email, :reply_to => @user.email, :subject => "#{@user.name} has made you the administrator of #{@club.name}")
   end
   
+  def report_club(user, club)
+    @adminid = User.where(admin: TRUE)
+    @admin = User.find(@adminid)
+    @user = user
+    @pin = pin
+    mail(:to => "#{@admin.name} <#{@admin.email}>", :from => @user.email, :reply_to => @user.email, :subject => "#{@user.name} has reported #{@club.name} as abusive")
+  end
+  
 end
 
 #UserMailer.request_pin(current_user, @pin).deliver

@@ -20,6 +20,7 @@ Omrails::Application.routes.draw do
       match 'removemember' => 'clubs#removemember'
       match 'leaveclub' => 'clubs#leaveclub'
       match 'banmember' => 'clubs#banmember'
+      match 'reportabuse' => 'clubs#reportabuse'
     end
   end
 

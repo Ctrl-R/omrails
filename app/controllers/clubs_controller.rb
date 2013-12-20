@@ -83,11 +83,23 @@ class ClubsController < ApplicationController
   # DELETE /clubs/1.json
   def destroy
     @club = Club.find(params[:id])
-    if @club.userlist.size == 1
-      @club.destroy
-      redirect_to clubs_path, notice: @club.name + ' has been closed.'
+    if current_user.id == @club.admin or current_user.admin?
+      if @club.userlist.size == 1
+        @club.destroy
+        redirect_to clubs_path, notice: @club.name + ' has been closed.'
+      else
+        redirect_to club_path(@club), notice: 'You cannot close a group that has more than one member.'
+      end
+    end
+  end
+  
+  def reportabuse
+    @user = current_user
+    @club = Club.find(params[:id])
+    if user_signed_in?
+      UserMailer.report_club(@user, @pin).deliver
+      redirect_to @club, notice: @club.name + ' has been reported to administration.'
     else
-      redirect_to club_path(@club), notice: 'You cannot close a group that has more than one member.'
     end
   end
   

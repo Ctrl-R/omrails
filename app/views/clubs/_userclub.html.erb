@@ -1,0 +1,15 @@
+<% if userclub.userlist.include?(current_user.id) %>
+	<tr onclick="window.location.href = '<%= club_path(userclub) %>'" style="cursor: pointer">
+	  <td><%= userclub.name %></td>
+	  <td width="30%"><%= userclub.description %></td>
+	  <td><%= userclub.location %></td>
+	  <td style="text-align: center"><%= if userclub.listed? then "Public" else "Members Only" end %></td>
+	  <td style="text-align: center">
+	  <%= link_to 'Enter', userclub, :class => "btn btn-primary" %>
+	  <% if current_user.admin? %>
+	  	<%= link_to 'Delete Club', userclub, method: :delete, data: { confirm: 'Are you sure? This will delete the entire club, all users&lsquo; gear will remain.' }, :class => "btn btn-danger" %>
+	  <% end %>
+	  <%= link_to (content_tag :i, "", class: "icon-flag", :title => 'Report Abuse'), reportabuse_club_path(userclub), data: { confirm: 'Are you sure you want to report this club as abusive?' }, class: "pull-right" %>
+	  </td>
+	</tr>
+<% end %>

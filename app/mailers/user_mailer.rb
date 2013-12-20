@@ -41,7 +41,7 @@ class UserMailer < ActionMailer::Base
     @adminid = User.where(admin: TRUE)
     @admin = User.find(@adminid)
     @user = user
-    @pin = pin
+    @club = club
     mail(:to => "#{@admin.name} <#{@admin.email}>", :from => @user.email, :reply_to => @user.email, :subject => "#{@user.name} has reported #{@club.name} as abusive")
   end
   

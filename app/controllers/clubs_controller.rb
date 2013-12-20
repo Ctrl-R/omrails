@@ -5,6 +5,7 @@ class ClubsController < ApplicationController
   helper_method :sort_column, :sort_direction, :filter_location
   
   def index
+    @userclubs = Club.order(sort_column + " " + sort_direction)
     if filter_location.blank?
       @clubs = Club.order(sort_column + " " + sort_direction).search(params[:search])
     else
@@ -97,7 +98,7 @@ class ClubsController < ApplicationController
     @user = current_user
     @club = Club.find(params[:id])
     if user_signed_in?
-      UserMailer.report_club(@user, @pin).deliver
+      UserMailer.report_club(@user, @club).deliver
       redirect_to @club, notice: @club.name + ' has been reported to administration.'
     else
     end

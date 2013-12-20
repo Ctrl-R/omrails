@@ -13,23 +13,35 @@
  		document.getElementById('search').focus();
 </script>
 
+<h4>Your Memberships</h4>
+<table class="table table-striped">
+  <tr>
+    <th><%= sortable "name", "Name" %></th>
+    <th>Description</th>
+    <th><%= sortable "location", "Location" %></th>
+    <th style="text-align: center">Privacy</th>
+    <th></th>
+  </tr>
+	<%= render @userclubs %>
+</table>
+
 <% if params[:search].blank? %>
-	<h2>All  
+	<h4>All  
 		<% if !params[:locationfilter].blank? %>
 			Clubs in <%= params[:locationfilter] %>
 		<% else %>
 			Clubs
 		<% end %>
-	</h2>
+	</h4>
 <% else %>
-	 <h2>All 
+	 <h4>All 
 		<% if !params[:locationfilter].blank? %>
 			Clubs in <%= params[:locationfilter] %>
 		<% else %>
 			Clubs
 		<% end %>
 		 Including "<%= params[:search] %>"
-		</h2>
+		</h4>
 <% end %>
 
 <table class="table table-striped">

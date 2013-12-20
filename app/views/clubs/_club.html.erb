@@ -1,5 +1,9 @@
 <% if !club.banneduser.include?(current_user.id) %>
-  <tr>
+  <% if club.userlist.include?(current_user.id) %>
+	  <tr onclick="window.location.href = '<%= club_path(club) %>'" style="cursor: pointer">
+  <% else %>
+  	<tr>
+  <% end %>
     <td><%= club.name %></td>
     <td width="30%"><%= club.description %></td>
     <td><%= club.location %></td>

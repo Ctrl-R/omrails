@@ -18,5 +18,13 @@ class Club < ActiveRecord::Base
   belongs_to :user
   has_many :users
   has_many :pins
-    
+
+  def self.search(search)
+    if search
+      find(:all, :conditions => ["(lower(description) LIKE lower(?))", "%#{search}%"])
+    else
+      Club.order("name")
+    end
+  end
+
 end

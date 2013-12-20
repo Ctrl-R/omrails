@@ -1,11 +1,42 @@
 <%= link_to 'New Club', new_club_path, :class => "btn btn-primary pull-right" %>
-<h1>Clubs</h1>
+<div>
+	<%= form_tag clubs_path,  :method => 'get' do %>
+	  <p>
+	    <%= text_field_tag :search, params[:search] %>
+	    <%= select_tag :locationfilter, options_for_select(Club.uniq.pluck(:location).collect{ |u| [u, u] }, :selected => params[:locationfilter]), prompt: "Filter by location" %>
+	    <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+	  </p>
+	<% end %>
+</div>
+
+<script language="JavaScript">
+ 		document.getElementById('search').focus();
+</script>
+
+<% if params[:search].blank? %>
+	<h2>All  
+		<% if !params[:locationfilter].blank? %>
+			Clubs in <%= params[:locationfilter] %>
+		<% else %>
+			Clubs
+		<% end %>
+	</h2>
+<% else %>
+	 <h2>All 
+		<% if !params[:locationfilter].blank? %>
+			Clubs in <%= params[:locationfilter] %>
+		<% else %>
+			Clubs
+		<% end %>
+		 Including "<%= params[:search] %>"
+		</h2>
+<% end %>
 
 <table class="table table-striped">
   <tr>
-    <th>Name</th>
+    <th><%= sortable "name", "Name" %></th>
     <th>Description</th>
-    <th>Location</th>
+    <th><%= sortable "location", "Location" %></th>
     <th style="text-align: center">Privacy</th>
     <th></th>
   </tr>

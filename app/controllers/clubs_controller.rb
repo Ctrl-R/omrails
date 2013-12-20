@@ -2,8 +2,14 @@ class ClubsController < ApplicationController
   before_filter :authenticate_user!
   # GET /clubs
   # GET /clubs.json
+  helper_method :sort_column, :sort_direction, :filter_location
+  
   def index
-    @clubs = Club.all
+    if filter_location.blank?
+      @clubs = Club.order(sort_column + " " + sort_direction).search(params[:search])
+    else
+      @clubs = Club.order(sort_column + " " + sort_direction).where(location: filter_location).search(params[:search])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -225,6 +231,18 @@ class ClubsController < ApplicationController
     else
       redirect_to edit_club_path(@club), notice: 'Only current admin can do that!'
     end
+  end
+  
+  def filter_location
+    Club.uniq.pluck(:location).include?(params[:locationfilter]) ? params[:locationfilter] : nil
+  end
+  
+  def sort_column
+    Club.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
   
 end

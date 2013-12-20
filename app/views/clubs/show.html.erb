@@ -25,6 +25,7 @@
 		<% if @club.admin == current_user.id %>
 			<%= link_to 'Administer', edit_club_path(@club), :class => "btn btn-primary" %>
 		<% end %>
+		<%= link_to 'End Membership', leaveclub_club_path(@club), data: { confirm: 'Are you sure you want to leave ' + @club.name + '?' }, :class => "btn btn-warning pull-right" %>
 	</div>
 	
 	<div class="well">

@@ -56,19 +56,25 @@
 		</div><!-- /.modal -->
 	<% end %>
 	
+	<% if @club.userlist.count == 1 %>
+		<%= link_to 'Close Club', @club, method: :delete, data: { confirm: 'Are you sure? This will delete the entire club, all users&lsquo; gear will remain.' }, :class => "btn btn-danger pull-right" %>
+	<% else %>
+		<%= link_to 'Close Club', "#", :class => "btn btn-disabled pull-right", :title => "You can only close a club if the administrator is the only user." %>
+	<% end %>
+	
 	<br /><br />
 	
 	<div class="well">
 		<h3>Club Details</h3>
 		<%= render 'form' %>
 		
-		<%= link_to 'View Club', @club, :class => "btn btn-primary" %>
-		<%= link_to 'Back', clubs_path, :class => "btn btn-primary" %>
+		<%= link_to 'Back to Club', @club, :class => "btn btn-primary" %>
+		<%= link_to 'Back to Listing', clubs_path, :class => "btn btn-primary" %>
 	</div>
 <% else %>
 	<div class="well">
 		<h5>Only admins of <%= @club.name %> can administer it.</h5>
 		<%= link_to 'View Club', @club, :class => "btn btn-primary" %>
-		<%= link_to 'Back', clubs_path, :class => "btn btn-primary" %>
+		<%= link_to 'Clubs Listing', clubs_path, :class => "btn btn-primary" %>
 	</div>
 <% end %>

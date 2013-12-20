@@ -81,7 +81,7 @@ class ClubsController < ApplicationController
       @club.destroy
       redirect_to clubs_path, notice: @club.name + ' has been closed.'
     else
-      redirect_to clubs_path, notice: 'You cannot close a group that has more than one member.'
+      redirect_to club_path(@club), notice: 'You cannot close a group that has more than one member.'
     end
   end
   
@@ -187,7 +187,7 @@ class ClubsController < ApplicationController
           redirect_to clubs_path, notice: 'You are not a member of that club.'
         end
       else
-        redirect_to clubs_path, notice: 'Current admin cannot leave, please transfer admin rights first.'
+        redirect_to club_path(@club), notice: 'Current admin cannot leave, please transfer admin rights first.'
       end
     else
       redirect_to new_user_session_path

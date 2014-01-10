@@ -15,18 +15,23 @@
       <!-- Everything you want hidden at 940px or less, place within here -->
       <div class="nav-collapse collapse">
         <ul class="nav">
-        	<li><%= link_to (image_tag('swap.png', :size => '19x20') + " All " + image_tag('buy.png', :size => '20x20')), root_path %></li>
-        	<li><%= link_to (image_tag('swap.png', :size => '19x20') + " Borrow"), showforloan_path %></li>
-        	<li><%= link_to (image_tag('buy.png', :size => '20x20') + " Buy"), showforsale_path %></li>
+        	<li class="dropdown">
+						<%= link_to (image_tag('swap.png', :size => '19x20') + " Public Gear " + image_tag('buy.png', :size => '20x20') + content_tag(:b, "", class: "caret")).html_safe, "#", {class: "dropdown-toggle", :id => "drop1", :"data-toggle" => "dropdown" } %>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to (image_tag('swap.png', :size => '19x20') + " All " + image_tag('buy.png', :size => '20x20')), root_path %></a></li>
+		        	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to (image_tag('swap.png', :size => '19x20') + " For Loan"), showforloan_path %></a></li>
+		        	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to (image_tag('buy.png', :size => '20x20') + " For Sale"), showforsale_path %></a></li>
+            </ul>
+          </li>
         	<li><%= link_to (image_tag('star.png', :size => '16x16') + " Favorites"), favoritelist_path %></li>
-        	<li><%= link_to (image_tag('club_icon.gif', :size => '19x20') + " Clubs"), clubs_path %></li>
+        	<li><%= link_to (image_tag('club_icon.gif', :size => '19x20') + " Clubs"), clubs_path %>
 				</ul>
 				<ul class="nav pull-right">
 					<% if user_signed_in? %>
 						<li><%= link_to "Add Gear +", new_pin_path %></li>
 						<li class="dropdown">
-							<%= link_to (current_user.name + content_tag(:b, "", class: "caret")).html_safe, "#", {class: "dropdown-toggle", :id => "drop1", :"data-toggle" => "dropdown" } %>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+							<%= link_to (current_user.name + content_tag(:b, "", class: "caret")).html_safe, "#", {class: "dropdown-toggle", :id => "drop3", :"data-toggle" => "dropdown" } %>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "Edit Account", edit_user_registration_path %></a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "View User Profile", user_path(current_user) %></a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= link_to "View Loan History", loans_path %></a></li>

@@ -21,7 +21,11 @@ class ClubsController < ApplicationController
   # GET /clubs/1.json
   def show
     @club = Club.find(params[:id])
-    @pins = Pin.where('user_id in (?)', @club.userlist)
+    if @club.listed?
+      @pins = Pin.where('user_id in (?) and publicgear=(?)', @club.userlist, TRUE)
+    else
+      @pins = Pin.where('user_id in (?)', @club.userlist)
+    end
 
     respond_to do |format|
       format.html # show.html.erb

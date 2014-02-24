@@ -9,6 +9,7 @@ gem 'aws-sdk'
 gem 'will_paginate' 
 gem 'bootstrap-will_paginate'
 gem 'figaro'
+gem 'newrelic_rpm'
 
 group :production do
 	gem 'pg'

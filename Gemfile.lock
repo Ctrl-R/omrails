@@ -74,10 +74,13 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.21)
+    mini_portile2 (2.4.0)
     multi_json (1.6.1)
     newrelic_rpm (3.7.2.195)
-    nokogiri (1.5.9)
-    nokogiri (1.5.9-x86-mingw32)
+    nokogiri (1.10.8)
+      mini_portile2 (~> 2.4.0)
+    nokogiri (1.10.8-x86-mingw32)
+      mini_portile2 (~> 2.4.0)
     orm_adapter (0.4.0)
     paperclip (3.4.1)
       activemodel (>= 3.0.0)
@@ -143,6 +146,7 @@ GEM
     will_paginate (3.0.4)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
